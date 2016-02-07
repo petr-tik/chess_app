@@ -6,7 +6,7 @@ class Player(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
 
     def __repr__(self):
-        return '<User {}>'.format(name)
+        return '<Player {}>'.format(self.name)
 
 class Tournament(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
@@ -16,14 +16,14 @@ class Tournament(db.Model):
     tie_break = db.Column(db.String(32))  # num won as black or head to head
     
     def __repr__(self):
-        return '<Tournament {}>'.format(name)    
+        return '<Tournament {}>'.format(self.name)    
 
 class Game(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
-    round = db.Column(db.Integer)
+    round_num = db.Column(db.Integer)
     white_id = db.Column(db.Integer)
     black_id = db.Column(db.Integer)
     outcome = db.Column(db.String(10)) # 'W', 'D' or 'L' white reference
 
     def __repr__(self):
-        return '<Game {}>'.format(ID)    
+        return '<Game {}>'.format(self.ID)    
