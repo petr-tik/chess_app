@@ -7,12 +7,12 @@ from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
 def home():
 	form = ChooseTournament(request.form)
 	if form.validate_on_submit():
-		if 'create' in request.form:
+		if request.form['create']:
 			return redirect(url_for('create_tournament'))
-		elif 'load' in request.form:
+		elif request.form['load']:
 			return redirect(url_for('load_tournament'))
 	
-	return render_template('index.html')
+	return render_template('index.html', load=request.form['load'], create=request.form['create'])
 
 
 
