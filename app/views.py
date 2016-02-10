@@ -8,22 +8,34 @@ def home():
 	form = ChooseTournament(request.form)
 	if form.validate_on_submit():
 		if request.form['create']:
-			return redirect(url_for('create_tournament'))
+			return redirect('create')
 		elif request.form['load']:
 			return redirect(url_for('load_tournament'))
 	
-	return render_template('index.html', load=request.form['load'], create=request.form['create'])
+	return render_template('index.html', form=form, title="Choose")
 
 
 
 
-@app.route('/create_tournament', methods = ['GET','POST'])
+@app.route('/create', methods = ['GET','POST'])
 def create():
-    #form = CreateTournament(request.form)
+    form = CreateTournament(request.form)
     #if request.method == 'POST' and form.validate():
-    	u	
+    return render_template('create_tournament.html', title='Home',form=form)
 
 
-    #	return 
-	return render_template('create_tournament.html', title='Home')
 
+@app.route('/add_players', methods = ['GET', 'POST'])
+def add_players():
+	form = AddPlayers(request.form)
+
+
+
+	return render_template('add_players.html',form=form)
+
+
+@app.route('/standings', methods = ['GET', 'POST'])
+def generate_table():
+	num_rounds = 5 # take from the database
+
+	return render_template('standings.html', num_rounds=num_rounds)

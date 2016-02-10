@@ -1,7 +1,7 @@
 <html>
     <head>
 	{% if title %}
-	<title>{{ title }} - Chess tournament app</title>
+	<title>Chess organiser {{ title }}</title>
 	{% else %}
 	<title>Generic page title</title>
 	{% endif %}
@@ -10,12 +10,18 @@
 	<h1>Choose what to do next</h1>
     </body>
 
-	<form action="" method="POST">
 
-		<input type="submit" name="load" value="Load">
-		<input type="submit" name="create" value="Create">
+    <form action="{{ url_for('create') }}" method="POST">
+     	<div class="form-group"> 
+     		{{ form.choice(class_="form-control")}}
+        </div>
 
 	</form>
+
+	<input type=submit name="Let's go">
+
+
+
 
 </html>
 
