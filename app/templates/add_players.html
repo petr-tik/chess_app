@@ -7,17 +7,18 @@
 </head>
 <body>
 
+<form>
 	
-<input type=text placeholder="Name">
+<input type=text {{ form.name }}>
 <br>
-<input type=text placeholder="Email">
+<input type=text {{ form.email }} >
 
 
 <br><br><br>
-<input type=submit name="Next">
+<input type=submit name= {{ form.submit }} 
 	
 </body>
 
-
+</form>
 
 </html>

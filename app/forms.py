@@ -25,3 +25,4 @@ class AddPlayers(Form):
 class RoundResults(Form):
 	# for x in Games:
 	outcome = SelectField(choices=[('W','1-0'), ('D', 'Draw'), ('L', '0-1')])
+	submit = SubmitField("Next round")

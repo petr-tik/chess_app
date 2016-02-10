@@ -1,0 +1,28 @@
+<!doctype=html>
+<html>
+<title> Round {{ round_c }} </title>
+
+<form method="POST">
+{% for x in range(NUM_GAMES) %}
+
+<radiogroup> 
+    
+    {{ names[x] }} 
+
+
+    {% for option in choices %}
+    <span class="segmented">
+        <label><input type="radio" id = {{ option }} </span> </radiogroup>
+
+</form>
+
+{% endfor %}
+{{ names[x + 2] }}
+{% endfor %}
+
+
+
+
+
+
+</html>

@@ -2,13 +2,36 @@
 <html>
 <title> Round {{ num_rounds }} standings </title>
 
-<table>
+<h1>
 after {{ num_rounds }} rounds
 
-</table>
+</h1>
 
-<input type=text placeholder={{ num_rounds }}>
 
+
+
+<form method="POST">
+{% for x in range(NUM_GAMES) %}
+
+<radiogroup> 
+    
+    {{ names[x] }} 
+
+    {% for option in form.outcome %}
+    <span class="segmented">
+        <label><input type="radio" id = {{ option }} 
+
+    </span>
+</radiogroup>
+</form>
+
+{% endfor %}
+{% endfor %}
+
+
+<br>
+<br>
+<input type=submit value= {{ form.submit }} 
 
 
 </html>
