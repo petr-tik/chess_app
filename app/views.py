@@ -8,13 +8,13 @@ from json import dumps
 @app.route('/', methods = ['GET', 'POST'])
 def home():
 	form = ChooseTournament(request.form)
-	if form.validate_on_submit():
-		if request.form['create']:
-			return redirect('create')
-		elif request.form['load']:
-			return redirect(url_for('load_tournament'))
 	
 	return render_template('index.html', form=form, title="Choose")
+	if request.method == 'POST':
+		if request.form['answer'] == 'create':
+			# go to the create page
+		elif request.form['answer'] == 'load':
+			# go to load pages and pull in all tournament entries from the database
 
 
 

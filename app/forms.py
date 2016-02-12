@@ -5,7 +5,6 @@ from wtforms import StringField, SelectField, validators, SubmitField, HiddenFie
 
 class ChooseTournament(Form):
 	choice = SelectField('New tournament', choices=[('load', 'load'), ('create', 'create')])
-	submit = SubmitField("Proceed")
 	
 class CreateTournament(Form):
 	tourn_name = StringField('Tournament name', [validators.Length(min=4, max=25)])

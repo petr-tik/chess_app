@@ -8,21 +8,16 @@
     </head>
     <body>
 	<h1>Choose what to do next</h1>
-    </body>
 
+<form action="." method="POST">
+    {% for option in form.choice %}
+   
+    <button type="submit" name=answer value={{ option }} </button>
 
-    <form action="{{ url_for('create') }}" method="POST">
-     	<div class="form-group"> 
-     		{{ form.choice(class_="form-control")}}
-        </div>
-
-	</form>
-
-	<input type=submit name="Let's go">
-
-
-
-
+    {% endfor %}
+    
+</form>
+</body>
 </html>
 
 
