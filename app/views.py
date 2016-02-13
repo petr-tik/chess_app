@@ -7,9 +7,9 @@ import sys
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
+	# page 1
 	form = ChooseTournament(request.form)
 	sys.stderr.write("got the form\n")
-	sys.stderr.write("{}".format(str(request.form)))
 		
 	if request.method == 'POST':
 		sys.stderr.write("post request received\n")
@@ -27,9 +27,20 @@ def home():
 	return render_template('index.html', form=form, title="Choose")
 
 
+@app.route('/load_tournament', methods = ['GET', 'POST'])
+def load():
+	# page 2
+	# connect to database and list all tournaments by name
+	
 
-@app.route('/create', methods = ['GET','POST'])
+
+	# submit button load 
+
+
+
+@app.route('/create_tournament', methods = ['GET','POST'])
 def create():
+	# page 3
     form = CreateTournament(request.form)
     #if request.method == 'POST' and form.validate():
     return render_template('create_tournament.html', title='Home',form=form)

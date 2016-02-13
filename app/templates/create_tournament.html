@@ -2,23 +2,37 @@
 <html>
 
 <head>
-    <title> Dojo Quiz </title>
+    <title> Create new tournament </title>
 </head>
 <body>
-    <input type=text placeholder="Tournament name">
-    <form>
+<form action="" method="POST">
+    <input type=text value=form.tourn_name placeholder="Tournament name">
+    
+
         <select required>
             <option value="" disabled selected hidden>Tournament system</option>
-            <option value="Round robin">Round robin</option>
-            <option value="Swiss">Swiss</option>
+            
+            {% for sys_option in form.system %}
+
+            <option value="{{ sys_option }}"> sys_option </option>
+            
+            {% endfor %}
         </select>
         <select required>
             <option value="" disabled selected hidden>Tie breaker</option>
-            <option value="Head to head">Head to head</option>
-            <option value="Most games as black">Games won as black</option>
+            
+            {% for tie_break_option in form.tie_break %}
+            <option value="{{tie_break_option}}">tie_break_option</option>
+            
+
+            {% endfor %}
         </select>
+
+    <input type=text placeholder="{{form.date.default}}" name="{{ form.date }}">    
+    <input type=text placeholder="Location" name="{{ form.location }}">
+
+    
     </form>
 
-    <input type=text placeholder="Location">
-
+</body>    
 </html>

@@ -12,7 +12,7 @@
 <form action="" method="POST">
     {% for option in form.choice %}
    
-    <input type="submit" value={{ option }}> {{ option }} 
+    <button><input type="submit" name=choice value={{ option }}> {{ option }} </button>
 
     {% endfor %}
     
