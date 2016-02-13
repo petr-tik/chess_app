@@ -3,19 +3,28 @@ from app import app
 from models import Player, Tournament, Game
 from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
 from json import dumps
-
+import sys
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
 	form = ChooseTournament(request.form)
-	
-	return render_template('index.html', form=form, title="Choose")
+	sys.stderr.write("got the form\n")
+	sys.stderr.write("{}".format(str(request.form)))
+		
 	if request.method == 'POST':
+		sys.stderr.write("post request received\n")
 		if request.form['answer'] == 'create':
+			sys.stderr.write(request.form['answer'])
+
+			pass
 			# go to the create page
 		elif request.form['answer'] == 'load':
 			# go to load pages and pull in all tournament entries from the database
+			sys.stderr.write(request.form['answer'])
 
+			pass
+
+	return render_template('index.html', form=form, title="Choose")
 
 
 

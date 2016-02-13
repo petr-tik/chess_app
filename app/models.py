@@ -20,10 +20,12 @@ class Tournament(db.Model):
 
 class Game(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
+    TournamentID = db.Column(db.Integer) # pull in from tournament database
     round_num = db.Column(db.Integer)
     white_id = db.Column(db.Integer)
-    black_id = db.Column(db.Integer)
+    black_id = db.Column(db.Integer) # pull players' IDs from Player db
     outcome = db.Column(db.String(10)) # 'W', 'D' or 'L' white reference
 
     def __repr__(self):
         return '<Game {}>'.format(self.ID)    
+
