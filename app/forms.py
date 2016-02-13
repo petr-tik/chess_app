@@ -8,8 +8,8 @@ class ChooseTournament(Form):
 	
 class CreateTournament(Form):
 	tourn_name = StringField('Tournament name', [validators.Length(min=4, max=25)])
-	system = SelectField('Tournament system', choices=[('Swiss', 'Swiss'), ('Round robin', 'Round robin')])
-	tie_break = SelectField('Tie breaker', choices=[('Swiss', 'Swiss'), ('Round robin', 'Round robin')])
+	system = SelectField('Tournament system', choices=[('swiss', 'Swiss'), ('round_robin', 'Round robin')])
+	tie_break = SelectField('Tie breaker', choices=[('head', 'Head to head'), ('black', 'Black wins')])
 	location = StringField('Location')
 	date = DateTimeField(format='%d/%m/%Y', default="{:%d/%m/%Y}".format(date.today()))
 	submit = SubmitField("Create tournament")

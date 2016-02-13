@@ -33,7 +33,7 @@ def load():
 	# connect to database and list all tournaments by name
 	
 
-
+	return render_template()
 	# submit button load 
 
 
@@ -42,6 +42,7 @@ def load():
 def create():
 	# page 3
     form = CreateTournament(request.form)
+
     #if request.method == 'POST' and form.validate():
     return render_template('create_tournament.html', title='Home',form=form)
 
@@ -56,8 +57,9 @@ def add_players():
 	if request.method == 'POST' and form.validate_on_submit():
 		print dumps(form)
 
-@app.route('/round', methods = ['GET', 'POST'])
-def round():
+@app.route('/round/<round_c>', methods = ['GET', 'POST'])
+# <round_c> will be passed in as variable
+def round(round_c	):
 	round_c = 4 # take from the database
 	names = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
 
