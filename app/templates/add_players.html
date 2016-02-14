@@ -19,7 +19,21 @@
 <button id="button" onlick="add_player()">Add player</button>
 
 
-<script src="/app/static/add_players.js"></script>
+<script type="text/javascript">
+
+document.getElementById('button').onclick = add_player;
+
+
+var i = 0;
+var original = document.getElementById('player');
+
+function add_player() {
+    var clone = original.cloneNode(true); // "deep" clone
+    clone.id = "player" + ++i; // there can only be one element with an ID
+    original.parentNode.appendChild(clone);
+}
+
+</script>
 
 
 <br><br><br>
