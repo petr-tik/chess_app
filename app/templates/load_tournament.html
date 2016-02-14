@@ -1,0 +1,20 @@
+<!doctype=html>
+
+<html>
+<head>
+	<title> Choose a tournament </title>
+<form action="" method="POST">
+<select name="select">
+{% for tourn in tourns %}
+	<option value="{{ tourn }}">
+{% endfor %}
+
+
+
+<input type="submit" value="Load this one">
+</form>
+<br>
+<br>
+<br>
+<br>
+</html>

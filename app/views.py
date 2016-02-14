@@ -2,62 +2,60 @@ from flask import render_template, request, flash, redirect, url_for
 from app import app
 from models import Player, Tournament, Game
 from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
-from json import dumps
+from datetime import date
 import sys
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
 	# page 1
 	form = ChooseTournament(request.form)
-	sys.stderr.write("got the form\n")
 		
 	if request.method == 'POST':
-		sys.stderr.write("post request received\n")
-		if request.form['answer'] == 'create':
-			sys.stderr.write(request.form['answer'])
+		flash("Got it!")
+		if request.form['choice'] == 'create':
+			flash("Let's create a new one")
+			return redirect(url_for("create_tournament"))
 
-			pass
-			# go to the create page
-		elif request.form['answer'] == 'load':
+		elif request.form['choice'] == 'load':
 			# go to load pages and pull in all tournament entries from the database
-			sys.stderr.write(request.form['answer'])
-
-			pass
+			flash("Let's load it up")
+			return redirect(url_for("load_tournament"))
 
 	return render_template('index.html', form=form, title="Choose")
 
 
 @app.route('/load_tournament', methods = ['GET', 'POST'])
-def load():
+def load_tournament():
 	# page 2
 	# connect to database and list all tournaments by name
-	
-
-	return render_template()
+	#tourns = Tournament.query.all()
+	tourns = {'January':[], 'february':[]}
+	return render_template('load_tournament.html', tourns=tourns)
 	# submit button load 
 
 
 
 @app.route('/create_tournament', methods = ['GET','POST'])
-def create():
+def create_tournament():
 	# page 3
     form = CreateTournament(request.form)
-
+    if request.method == 'POST':
+    	return redirect(url_for('add_players'))
     #if request.method == 'POST' and form.validate():
     return render_template('create_tournament.html', title='Home',form=form)
 
 
 
+#@app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
 @app.route('/add_players', methods = ['GET', 'POST'])
 def add_players():
 	form = AddPlayers(request.form)
 
 	return render_template('add_players.html',form=form)
 	
-	if request.method == 'POST' and form.validate_on_submit():
-		print dumps(form)
 
-@app.route('/round/<round_c>', methods = ['GET', 'POST'])
+
+@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
 # <round_c> will be passed in as variable
 def round(round_c	):
 	round_c = 4 # take from the database
@@ -70,7 +68,7 @@ def round(round_c	):
     	
 
 
-@app.route('/standings', methods = ['GET', 'POST'])
+@app.route('/<tournamentID>/standings', methods = ['GET', 'POST'])
 def generate_table():
 
 	"""gets the round number, players names and round match schedule, pass it into the rendered template 

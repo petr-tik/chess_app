@@ -10,11 +10,9 @@
 	<h1>Choose what to do next</h1>
 
 <form action="" method="POST">
-    {% for option in form.choice %}
    
-    <button><input type="submit" name=choice value={{ option }}> {{ option }} </button>
-
-    {% endfor %}
+    <input type="submit" name="choice" value="load">
+    <input type="submit" name="choice" value="create">
     
 </form>
 </body>

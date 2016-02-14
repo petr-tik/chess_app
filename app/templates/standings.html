@@ -10,24 +10,6 @@ after {{ num_rounds }} rounds
 
 
 
-<form method="POST">
-{% for x in range(NUM_GAMES) %}
-
-<radiogroup> 
-    
-    {{ names[x] }} 
-
-    {% for option in form.outcome %}
-    <span class="segmented">
-        <label><input type="radio" id = {{ option }} 
-
-    </span>
-</radiogroup>
-</form>
-
-{% endfor %}
-{% endfor %}
-
 
 <br>
 <br>
