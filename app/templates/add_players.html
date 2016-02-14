@@ -7,15 +7,23 @@
 </head>
 <body>
 
-<form>
-	
-<input type="text" name="name" placeholder="Name" value="{{ request.form.name }}">
+<form action="" method='POST'>
+<div id="player">
 
-<input type="text" name="email" placeholder="Email" value="{{ request.form.email }}">
+<input required type="text" name="name" placeholder="Name" value="{{ request.form.name }}">
+
+<input required type="email" name="email" placeholder="Email" value="{{ request.form.email }}">
+
+</div>
+
+<button id="button" onlick="add_player()">Add player</button>
+
+
+<script src="/app/static/add_players.js"></script>
 
 
 <br><br><br>
-<input type="submit" value="{{ form.submit }}">
+<input type="submit" value="Start playing">
 	
 </body>
 

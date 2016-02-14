@@ -11,9 +11,7 @@ def home():
 	form = ChooseTournament(request.form)
 		
 	if request.method == 'POST':
-		flash("Got it!")
-		if request.form['choice'] == 'create':
-			flash("Let's create a new one")
+		if request.form['choice'] == 'create':	
 			return redirect(url_for("create_tournament"))
 
 		elif request.form['choice'] == 'load':
@@ -39,7 +37,7 @@ def load_tournament():
 def create_tournament():
 	# page 3
     form = CreateTournament(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate_on_submit():
     	return redirect(url_for('add_players'))
     #if request.method == 'POST' and form.validate():
     return render_template('create_tournament.html', title='Home',form=form)
