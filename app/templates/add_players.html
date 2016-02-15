@@ -13,9 +13,7 @@ Already registered
 <table>
 {% for player in PLAYERS %}
 
-
 {{ player[0] }}, {{ player[1] }} <br>
-
 
 {% endfor %}
 </table>
@@ -27,15 +25,16 @@ Already registered
 
 <form action="" method='POST'>
 
-<input required type="text" name="name" placeholder="Name">
-<input required type="email" name="email" placeholder="Email">
+<input type="text" name="name" placeholder="Name">
+<input type="email" name="email" placeholder="Email">
 
-<input type="submit" name="Add player" value="Add player">
-	
+<input type="submit" name="send" value="Add player">
+
+<br><br><br>
+<input type="submit" name="send" value="Start playing">	
+
 </form>
 </body>
 
-<br><br><br>
-<input type="submit" name="submit" value="Start playing">
 
 </html>

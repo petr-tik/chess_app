@@ -6,7 +6,7 @@ from datetime import date
 import sys
 
 
-PLAYERS= []
+PLAYERS = []
 #PLAYERS= [('John', 'john@gmail.com'), ('Bob', 'bob@gmail.com')]
 
 
@@ -56,22 +56,22 @@ def create_tournament():
 @app.route('/add_players', methods = ['GET', 'POST'])
 def add_players():
 	form = AddPlayers(request.form)
-	
 	if request.method == 'POST':
-		new = (request.form['name'], request.form['email'])
-		PLAYERS.append(new)
-		return render_template('add_players.html',form=form, PLAYERS=PLAYERS)	
+		if request.form['send'] == 'Add player':
+			new = (request.form['name'], request.form['email'])
+			PLAYERS.append(new)
+
+		elif request.form['send'] == 'Start playing':
+			return redirect(url_for("round"))
+
+	return render_template('add_players.html',form=form, PLAYERS=PLAYERS)
 	
-	#elif request.form['submit'] == 'Start playing':
-	#	return redirect(url_for("home"))
-
-	return render_template('add_players.html',form=form)
-	
 
 
-@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
+#@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
 # <round_c> will be passed in as variable
-def round(round_c):
+@app.route('/round', methods = ['GET', 'POST'])
+def round():
 	round_c = 4 # take from the database
 	names = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
 
@@ -82,9 +82,9 @@ def round(round_c):
     	
 
 
-@app.route('/<tournamentID>/standings', methods = ['GET', 'POST'])
-def generate_table():
-
+#@app.route('/<tournamentID>/standings', methods = ['GET', 'POST'])
+@app.route('/standings', methods = ['GET', 'POST'])
+def standings():
 	"""gets the round number, PLAYERSnames and round match schedule, pass it into the rendered template 
 
 	make a template to enter results and proceed to the next round """
