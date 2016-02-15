@@ -73,12 +73,14 @@ def add_players():
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
 	round_c = 4 # take from the database
-	names = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
-
+	players = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
 	# a global number of games per round, that will be calculated for each tournament 
-	NUM_GAMES = len(names)/2
-	choices = ['1-0', 'Draw', '0-1']
-	return render_template('round.html', round_c=round_c, NUM_GAMES=NUM_GAMES, names=names, choices=choices)
+	NUM_GAMES = len(players)
+
+	if request.method == 'POST':
+		return redirect(url_for("standings"))
+
+	return render_template('round.html', round_c=round_c, NUM_GAMES=NUM_GAMES, players=players)
     	
 
 

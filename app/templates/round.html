@@ -2,27 +2,31 @@
 <html>
 <title> Round {{ round_c }} </title>
 
-<form method="POST">
-{% for x in range(NUM_GAMES) %}
-
-<radiogroup> 
-    
-    {{ names[x] }} 
+<body>
+	<h2> Round {{ round_c }} </h2>
 
 
-    {% for option in choices %}
+<form action="" method="POST">
+{% for x in range(0,NUM_GAMES,2) %}
+
+<div>
+<radiogroup>
+{{ players[x] }}
     <span class="segmented">
-        <label><input type="radio" id = {{ option }} </span> </radiogroup>
+        <label><input type="radio" name="game{{x}}" value="win"><span class="label">1-0</span></label>
+        <label><input type="radio" name="game{{x}}" value="draw"><span class="label">Draw</span></label>
+        <label><input type="radio" name="game{{x}}" value="lose"><span class="label">0-1</span></label>
+    </span>
+{{ players[x+1] }}
+</radiogroup>
+</div>
 
+{% endfor %}
+<br><br><br>
+<input type="submit" value="Standings">
 </form>
 
-{% endfor %}
-{{ names[x + 2] }}
-{% endfor %}
-
-
-
-
+</body>
 
 
 </html>
