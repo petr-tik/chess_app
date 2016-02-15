@@ -5,6 +5,11 @@ from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
 from datetime import date
 import sys
 
+
+PLAYERS= []
+#PLAYERS= [('John', 'john@gmail.com'), ('Bob', 'bob@gmail.com')]
+
+
 @app.route('/', methods = ['GET', 'POST'])
 def home():
 	# page 1
@@ -39,6 +44,9 @@ def create_tournament():
     form = CreateTournament(request.form)
     if request.method == 'POST' and form.validate_on_submit():
     	return redirect(url_for('add_players'))
+    	# pull tournamentID from db and redirect to proper page
+    	# return redirect('/<tournamentID>/add_players')
+
     #if request.method == 'POST' and form.validate():
     return render_template('create_tournament.html', title='Home',form=form)
 
@@ -48,6 +56,14 @@ def create_tournament():
 @app.route('/add_players', methods = ['GET', 'POST'])
 def add_players():
 	form = AddPlayers(request.form)
+	
+	if request.method == 'POST':
+		new = (request.form['name'], request.form['email'])
+		PLAYERS.append(new)
+		return render_template('add_players.html',form=form, PLAYERS=PLAYERS)	
+	
+	#elif request.form['submit'] == 'Start playing':
+	#	return redirect(url_for("home"))
 
 	return render_template('add_players.html',form=form)
 	
@@ -55,7 +71,7 @@ def add_players():
 
 @app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
 # <round_c> will be passed in as variable
-def round(round_c	):
+def round(round_c):
 	round_c = 4 # take from the database
 	names = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
 
@@ -69,7 +85,7 @@ def round(round_c	):
 @app.route('/<tournamentID>/standings', methods = ['GET', 'POST'])
 def generate_table():
 
-	"""gets the round number, players names and round match schedule, pass it into the rendered template 
+	"""gets the round number, PLAYERSnames and round match schedule, pass it into the rendered template 
 
 	make a template to enter results and proceed to the next round """
 	round_c = 4 # take from the database
