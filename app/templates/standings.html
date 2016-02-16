@@ -1,19 +1,45 @@
 <!doctype html>
 <html>
-<title> Round {{ num_rounds }} standings </title>
+<title> Round {{ round_c }} standings </title>
 
 <h1>
-after {{ num_rounds }} rounds
+After {{ round_c }} rounds </h1>
+<body>
 
-</h1>
+<table>
+<thead>
+<tr>
+<th> Name </th>
+<th> Position </th>
+<th> Won </th>
+<th> Lost </th>
+<th> Head to head </th>
+
+</tr>
+</thead>
+
+{% for player in PLAYERS %}
+<tr> <td> {{player[0]}} </td> </tr>
+{% endfor %}
 
 
+</table>
+</body>
 
 
 
 <br>
 <br>
-<input type=submit value= {{ form.submit }} 
+{% if round_c == NUM_ROUNDS %}
+<form>
+<input type="submit" name='button' value="Final result">
+
+{% else %}
+
+<input type="submit" value="Next round">
 
 
+{% endif %}
+
+</form>
 </html>

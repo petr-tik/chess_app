@@ -6,9 +6,8 @@ from datetime import date
 import sys
 
 
-PLAYERS = []
-#PLAYERS= [('John', 'john@gmail.com'), ('Bob', 'bob@gmail.com')]
-
+#PLAYERS = []
+PLAYERS= [('John', 'john@gmail.com'), ('Bob', 'bob@gmail.com')]
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
@@ -72,6 +71,10 @@ def add_players():
 # <round_c> will be passed in as variable
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
+	"""gets the round number, PLAYERS' names and round match schedule, pass it into the rendered template 
+
+	make a template to enter results and proceed to the next round """
+
 	round_c = 4 # take from the database
 	players = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
 	# a global number of games per round, that will be calculated for each tournament 
@@ -83,18 +86,24 @@ def round():
 	return render_template('round.html', round_c=round_c, NUM_GAMES=NUM_GAMES, players=players)
     	
 
+# pass tournament ID and round counter into the path
+#@app.route('/<tournamentID>/<round_c>/standings', methods = ['GET', 'POST'])
 
-#@app.route('/<tournamentID>/standings', methods = ['GET', 'POST'])
 @app.route('/standings', methods = ['GET', 'POST'])
 def standings():
-	"""gets the round number, PLAYERSnames and round match schedule, pass it into the rendered template 
-
-	make a template to enter results and proceed to the next round """
 	round_c = 4 # take from the database
-	form = RoundResults(request.form)
-	names = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
+	NUM_ROUNDS = 5
+	if request.method == 'POST':
+		if request.form['button'] == "Final result":
+			return redirect(url_for('final'))
+	return render_template('standings.html', round_c=round_c, NUM_ROUNDS=NUM_ROUNDS, PLAYERS=PLAYERS)
 
-	# a global number of games per round, that will be calculated for each tournament 
-	NUM_GAMES = len(names)/2
 
-	return render_template('standings.html', round_c=round_c, form=form, NUM_GAMES=NUM_GAMES, names=names)
+@app.route('/final_results', methods = ['GET', 'POST'])
+def final_results():
+	if request.method == 'POST':
+		# send email to all participants with final standings and round results 
+		pass
+
+
+	return render_template('final_results.html')
