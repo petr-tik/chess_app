@@ -17,6 +17,13 @@ class testTournament(unittest.TestCase):
 		self.assertEqual(False, self.tourn_even_robin.bye())
 		self.assertEqual(False, self.tourn_even_swiss.bye())
 
+	def test_three_in_a_row(self):
+		pass
+
+	def test_round(self):
+		# all players paired up 
+		self.assertEqual(2*len(self.Round.matches) + len(self.Round.bye), len(self.players))
+
 
 
 
