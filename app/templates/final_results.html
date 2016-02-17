@@ -1,0 +1,42 @@
+<!doctype=html>
+
+<head>
+<title> Final results </title>
+</head>
+
+<body>
+<h1> Congratulations to {{ winner }} on winning </h1>
+
+<h2> Here is the final standings </h2>
+
+<table>
+<thead>
+<tr>
+<th> Name </th>
+<th> Position </th>
+<th> Won </th>
+<th> Lost </th>
+<th> Head to head </th>
+
+</tr>
+</thead>
+
+{% for player in PLAYERS %}
+<tr> 
+{% for x in range(5) %}
+
+<td> {{ player[x] }} </td>
+{% endfor %}
+ </tr>
+{% endfor %}
+
+</table>
+
+
+
+
+</body>
+
+
+
+</html>

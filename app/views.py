@@ -7,7 +7,7 @@ import sys
 
 
 #PLAYERS = []
-PLAYERS= [('John', 'john@gmail.com'), ('Bob', 'bob@gmail.com')]
+PLAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
@@ -103,7 +103,9 @@ def standings():
 def final_results():
 	if request.method == 'POST':
 		# send email to all participants with final standings and round results 
+
+
 		pass
 
 
-	return render_template('final_results.html')
+	return render_template('final_results.html', PLAYERS = PLAYERS, winner = 'john')
