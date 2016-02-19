@@ -4,6 +4,16 @@ from collections import namedtuple
 #players = pd.from_csv('players.csv')
 
 
+def before(LoL, element):
+	# takes List of lists and element, returns boolean
+	# a function that checks if element of its mirror opposite has appeared before
+	flatL = [x for sublist in LoL for x in sublist]
+	if element not in flatL and element[::-1] not in flatL:
+		return False
+	else:
+		return True
+
+
 class Tournament(object):
 	"""
 initialise the tournament object with an overall list of players and the system definition (swiss or robin)
@@ -35,34 +45,48 @@ Thanks to @DRMacIver
 		Thanks to @eterevsky for reading me rambling on about this, so I could start going the right direction
 
 		"""
-
 		# outputs a list of named tuples 
 		TOURNAMENT = []
-		# number of rounds = number of players - 1 - so everyone plays every other player
+		# number of rounds = (number of players - 1) so everyone plays everybody else
 		for x in xrange(len(self.players) - 1):
+			# begin each round with full list of players and no matches played
 			players = self.players
 			matches = []
+
 			# constantly take the first member of the list
 			first = 0
-
+			other = 1
 			while players:
+				print "Matches scheduled for this round:", matches
+				print "The players still available:", players
 				#make a pair
-				other = 1
+				
 				potential_pair = (players[first], players[other])
-				if any(potential_pair in mat for mat in TOURNAMENT):
+				print "Potential pair:", potential_pair
+				print "Matches scheduled until now:", TOURNAMENT
+				
+				if before(TOURNAMENT, potential_pair):
+					#or (potential_pair[::-1] in sublist for sublist in TOURNAMENT)
+					print "potential pair {} was found in {}".format(potential_pair, TOURNAMENT)
 					other += 1
 					continue
 				else:
+					print "\n\n\n{} is a new pair and I will add them to {}".format(potential_pair, matches)
+
 					# append them to matches for the round
 					matches.append(potential_pair)
 					#delete them from players
 					players = [pl for pl in players if pl not in potential_pair]
-					continue
+					other = 1
+					
 				
-			bye = []
+
 			TOURNAMENT.append(matches)
-			print TOURNAMENT[x]
-		print TOURNAMENT
+			print "Round {} matches:".format(x), TOURNAMENT[x]
+		print "\n\n\n\nHere is the full tournament schedule:", TOURNAMENT
+
+	def robin_even_double(self):
+		pass
 
 
 	def robin_odd(self):
@@ -74,7 +98,7 @@ Thanks to @DRMacIver
 				self.robin_odd()
 			else:
 				self.robin_even()
-		else:
+		elif self.system == 'swiss':
 			pass
 
 
