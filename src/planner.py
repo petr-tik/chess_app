@@ -20,42 +20,8 @@ Thanks to @DRMacIver
 	def __init__(self, PLAYERS, system):
 		self.players = PLAYERS
 		self.system = system
-
-	def round_robin_even(self, players, TOURNAMENT):
-		"""
-		Thanks to @eterevsky for reading me rambling on about this, so I could start going the right direction
-
-		"""
-		matches = []
-		# constantly take the first member of the list
-		first = 0
-		other = 1
-		while players:
-			print "Matches scheduled for this round:", matches
-			print "The players still available:", players
-			#make a pair				
-			potential_pair = (players[first], players[other])
-			print "Potential pair:", potential_pair
-			print "Matches scheduled until now:", TOURNAMENT
-			if before(TOURNAMENT, potential_pair):
-				#or (potential_pair[::-1] in sublist for sublist in TOURNAMENT)
-				print "potential pair {} was found in {}".format(potential_pair, TOURNAMENT)
-				other += 1
-				continue
-			else:
-				print "\n\n\n{} is a new pair and I will add them to {}".format(potential_pair, matches)
-
-				# append them to matches for the round
-				matches.append(potential_pair)
-				#delete them from players
-				players = [pl for pl in players if pl not in potential_pair]
-				other = 1
-					
-				
-		return matches	
-
-	def berger_robin_even(self):
-		players = self.players
+	
+	def berger_robin(self, players):
 		n = len(players)
 		shift = n/2
 		last = players.pop()
@@ -72,45 +38,22 @@ Thanks to @DRMacIver
 			pl_deque.rotate(shift)	
 			TOURNAMENT.append(matches+other_games)
 
-		return TOURNAMENT
-
-
-	def full_robin_even(self):
-		TOURNAMENT = []
-		for x in xrange(len(self.players) - 1):
-			matches = self.round_robin_even(self.players, TOURNAMENT)
-			TOURNAMENT.append(matches)
-
 		print TOURNAMENT
-
-
-
-	def robin_odd(self, players):
-		players = self.players
-		matches = []
-		bye = []
-		for pl in players:
-			bye.append(pl)
-			left_players = [x for x in players if x != pl]
-			self.robin_even(self)
-
 
 	def generate(self):
 		if self.system == 'robin':
-			if self.bye():
-				self.robin_odd(self)
+			if len(self.players) % 2 == 0:
+				players = self.players
+				return self.berger_robin(players)
 			else:
-				self.berger_robin_even()
-		elif self.system == 'swiss':
-			pass
+				players = self.players
+				players.append('BYE')
+				return self.berger_robin(players)
+
+players_even = ['john', 'bob', 'ana']
+tourn = Tournament(players_even,'robin')
+x = tourn.generate()
 
 
 
-
-even_lads = ['bob', 'john', 'max', 'adam', 'chris', 'ana']
-odd_lads = ['bob', 'john', 'max', 'adam', 'chris']
-tourn = Tournament(even_lads, 'robin')
-tourn.generate()
-
-
-
+		

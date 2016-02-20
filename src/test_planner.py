@@ -11,26 +11,15 @@ class testTournament(unittest.TestCase):
 		self.tourn_even_swiss = Tournament(players_even,'swiss')
 
 
-	def test_bye(self):
-		self.assertEqual(True, self.tourn_odd_robin.bye())
-		self.assertEqual(True, self.tourn_odd_swiss.bye())
-		self.assertEqual(False, self.tourn_even_robin.bye())
-		self.assertEqual(False, self.tourn_even_swiss.bye())
+	def everyone_plays(self):
+		
+
 
 	def test_three_in_a_row(self):
-		pass
-
-	def test_round(self):
-		# all players paired up 
-		self.assertEqual(2*len(self.Round.matches) + len(self.Round.bye), len(self.players))
-
-
-
-
-
-
-
-
+		x = self.tourn_even_robin.berger_robin_even()
+		
+		for player in self.tourn_even_robin.players:
+			# in all matches no player plays the same colour more than twice in a row
 
 
 
