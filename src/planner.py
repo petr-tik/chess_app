@@ -1,18 +1,6 @@
 import pandas as pd
 from collections import namedtuple, deque
 
-#players = pd.from_csv('players.csv')
-
-
-def before(LoL, element):
-	# takes List of lists and element, returns boolean
-	# a function that checks if element of its mirror opposite has appeared before
-	flatL = [x for sublist in LoL for x in sublist]
-	if element not in flatL and element[::-1] not in flatL:
-		return False
-	else:
-		return True
-
 
 class Tournament(object):
 	"""
@@ -32,13 +20,6 @@ Thanks to @DRMacIver
 	def __init__(self, PLAYERS, system):
 		self.players = PLAYERS
 		self.system = system
-		self.Round = namedtuple('Round', ('matches', 'bye'))
-
-	def bye(self):
-		if len(self.players) % 2 == 0:
-			return False
-		else:
-			return True
 
 	def round_robin_even(self, players, TOURNAMENT):
 		"""
