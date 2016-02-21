@@ -1,6 +1,5 @@
 import pandas as pd
-from collections import namedtuple, deque
-
+from collections import deque
 
 class Tournament(object):
 	"""
@@ -38,7 +37,7 @@ Thanks to @DRMacIver
 			pl_deque.rotate(shift)	
 			TOURNAMENT.append(matches+other_games)
 
-		print TOURNAMENT
+		return TOURNAMENT
 
 	def generate(self):
 		if self.system == 'robin':
@@ -50,9 +49,6 @@ Thanks to @DRMacIver
 				players.append('BYE')
 				return self.berger_robin(players)
 
-players_even = ['john', 'bob', 'ana']
-tourn = Tournament(players_even,'robin')
-x = tourn.generate()
 
 
 

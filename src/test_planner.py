@@ -6,23 +6,17 @@ class testTournament(unittest.TestCase):
 		players_odd = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry', 'will']
 		players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry']
 		self.tourn_odd_robin = Tournament(players_odd,'robin')
-		self.tourn_odd_swiss = Tournament(players_odd,'swiss')
 		self.tourn_even_robin = Tournament(players_even,'robin')
-		self.tourn_even_swiss = Tournament(players_even,'swiss')
+		self.Rounds_even = self.tourn_even_robin.generate()
 
+	def test_players_per_round(self):
+		# test that each round only has max number of players not more than double the number of couples
+		for rnd in self.Rounds_even:
+			self.assertTrue(len(self.tourn_even_robin.players) <= 2*len(rnd))
 
-	def everyone_plays(self):
-		
-
-
-	def test_three_in_a_row(self):
-		x = self.tourn_even_robin.berger_robin_even()
-		
-		for player in self.tourn_even_robin.players:
-			# in all matches no player plays the same colour more than twice in a row
-
-
-
+	def test_everyone_plays(self):
+		for rnd in self.Rounds_even:
+			pass			
 
 if __name__ == '__main__':
     unittest.main(verbosity=10)
