@@ -6,8 +6,8 @@ from datetime import date
 import sys
 
 
-#PLAYERS = []
-PLAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
+PLAYERS = []
+#LAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
@@ -42,11 +42,17 @@ def create_tournament():
 	# page 3
     form = CreateTournament(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-    	return redirect(url_for('add_players'))
-    	# pull tournamentID from db and redirect to proper page
-    	# return redirect('/<tournamentID>/add_players')
+    	torn = Tournament(request.form['tourn_name'],
+    						request.form['location'],
+    						request.form['date']
+    						request.form['system'],
+    						request.form['tie_break'])
 
-    #if request.method == 'POST' and form.validate():
+    	#db.session.add(torn)
+    	#db.session.commit()
+
+    	return redirect(url_for('add_players'))
+
     return render_template('create_tournament.html', title='Home',form=form)
 
 
@@ -59,8 +65,14 @@ def add_players():
 		if request.form['send'] == 'Add player':
 			new = (request.form['name'], request.form['email'])
 			PLAYERS.append(new)
+			#db.session.add(new)
+
+		elif request.form['send'] == 'Delete':
+			pass
+
 
 		elif request.form['send'] == 'Start playing':
+			#db.session.commit() 
 			return redirect(url_for("round"))
 
 	return render_template('add_players.html',form=form, PLAYERS=PLAYERS)
