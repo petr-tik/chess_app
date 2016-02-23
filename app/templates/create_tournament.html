@@ -6,43 +6,36 @@
 </head>
 <body>
 <form action="" method="POST">
-    <br>
-
-    <input type="text" required name="tourn_name" placeholder="Tournament name">
-    
-        <br>
-
+<br>
+    <input type="text" required name="tourn_name" placeholder="Tournament name">    
+<br>
+    <input type="text" required placeholder="Location" name="location">
+<br>
+    <input type="date" required name="date">    
+<br>
         <select name="system" required>
             <option value="" disabled selected hidden>Tournament system</option>
             
             {% for sys_option in form.system %}
 
-            <option value={{ sys_option }}> sys_option </option>
+            <option value="{{ sys_option }}"> sys_option </option>
             
             {% endfor %}
         </select>
-        <br>
+<br>
         <select name="tie_break" required>
             <option value="" disabled selected hidden>Tie breaker</option>
             
             {% for tie_break_option in form.tie_break %}
-            <option value={{ tie_break_option }}>tie_break_option</option>      
+            <option value="{{ tie_break_option }}">tie_break_option</option>      
             
             {% endfor %}
         </select>
 <br>
-
-    <input type="date" required name="date">    
-<br>
-
-    <input type="text" required placeholder="Location" name="location">
 <br>
 <br>
-<br>
-
-
-    <input type="submit" value="Let's add players">
-    </form>
+    <input type="submit" name="next" value="Let's add players">
+</form>
 
 </body>    
 </html>
