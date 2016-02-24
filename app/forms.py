@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from datetime import date
-from wtforms import StringField, SelectField, validators, SubmitField, HiddenField, DateTimeField
+from wtforms import StringField, SelectField, validators, SubmitField, HiddenField
+from wtforms.fields.html5 import DateField
 
 
 class ChooseTournament(Form):
@@ -8,10 +9,10 @@ class ChooseTournament(Form):
 	
 class CreateTournament(Form):
 	tourn_name = StringField('Tournament name', [validators.Length(min=4, max=25)])
-	system = SelectField('Tournament system', choices=[('swiss', 'Swiss'), ('round_robin', 'Round robin')])
-	tie_break = SelectField('Tie breaker', choices=[('head', 'Head to head'), ('black', 'Black wins')])
 	location = StringField('Location')
-	date = DateTimeField(format='%d/%m/%Y')
+	date = DateField(format='%d/%m/%Y')
+	system = SelectField('Tournament system', choices=[('swiss', 'Swiss system'), ('round_robin', 'Round robin')], render_kw={"label":"System"})
+	tie_break = SelectField('Tie breaker', choices=[('head', 'Head to head'), ('black', 'Wins with black')])
 	submit = SubmitField("Let's add players")
 
 

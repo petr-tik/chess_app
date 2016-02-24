@@ -20,7 +20,7 @@ class Tournament(db.Model):
     system = db.Column(db.String(32)) # roundrobin or swiss
     tie_break = db.Column(db.String(32))  # num won as black or head to head
     
-    def __init__(self, name, location, system, tie_break):
+    def __init__(self, name, location, date, system, tie_break):
         self.name = name
         self.location = location
         self.date = date
