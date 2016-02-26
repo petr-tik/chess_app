@@ -7,29 +7,16 @@
 <body>
 <form action="" method="POST">
 <br>
-    {{ form.tourn_name(placeholder="Tournament name") }}    
+Name    {{ form.tourn_name(placeholder="What will you call it?") }}    
 <br>
-    {{ form.location(placeholder="Location") }}
+Location    {{ form.location(placeholder="Where are you playing?") }}
 <br>
-    {{ form.date }}    
+Date {{ form.date }}    
 <br>
-    {% if option == "def" %}
-    {{ form.system(hidden=True) }} 
-    
-    {% else %}
-    
-    {{ form.system }}
+Tournament system   {{ form.system }}
 
-    {% endif %}
 <br>
-        <select name="tie_break" required>
-            <option value="" disabled selected hidden>Tie breaker</option>
-            
-            {% for tie_break_option in form.tie_break %}
-            <option value="{{ tie_break_option }}"</option>      
-            
-            {% endfor %}
-        </select>
+Tie breaker {{ form.tie_break }}
 <br>
 <br>
 <br>
