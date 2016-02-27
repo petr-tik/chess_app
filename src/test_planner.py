@@ -1,12 +1,12 @@
 import unittest
-from planner import Tournament
+from planner import GamePlan
 
 class testTournament(unittest.TestCase):
 	def setUp(self):
 		players_odd = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry', 'will']
 		players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry']
-		self.tourn_odd_robin = Tournament(players_odd,'robin')
-		self.tourn_even_robin = Tournament(players_even,'robin')
+		self.tourn_odd_robin = GamePlan(players_odd)
+		self.tourn_even_robin = GamePlan(players_even)
 		self.Rounds_even = self.tourn_even_robin.generate()
 
 	def test_players_per_round(self):

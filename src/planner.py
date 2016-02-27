@@ -1,7 +1,6 @@
-import pandas as pd
 from collections import deque
 
-class Tournament(object):
+class GamePlan(object):
 	"""
 initialise the tournament object with an overall list of players and the system definition (swiss or robin)
 
@@ -16,10 +15,9 @@ Thanks to @DRMacIver
 
 
 """
-	def __init__(self, PLAYERS, system):
+	def __init__(self, PLAYERS):
 		self.players = PLAYERS
-		self.system = system
-	
+
 	def berger_robin(self, players):
 		n = len(players)
 		shift = n/2
@@ -40,14 +38,13 @@ Thanks to @DRMacIver
 		return TOURNAMENT
 
 	def generate(self):
-		if self.system == 'robin':
-			if len(self.players) % 2 == 0:
-				players = self.players
-				return self.berger_robin(players)
-			else:
-				players = self.players
-				players.append('BYE')
-				return self.berger_robin(players)
+		if len(self.players) % 2 == 0:
+			players = self.players
+			return self.berger_robin(players)	
+		else:
+			players = self.players
+			players.append('BYE')
+			return self.berger_robin(players)
 
 
 
