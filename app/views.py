@@ -1,5 +1,5 @@
-from flask import render_template, request, flash, redirect, url_for
-from app import app
+from flask import render_template, request, flash, redirect, url_for, validate_on_submit
+from app import app, db
 from models import Player, Tournament, Game
 from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
 from datetime import date
@@ -7,7 +7,7 @@ import sys
 
 
 PLAYERS = []
-#LAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
+#PLAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
@@ -20,7 +20,6 @@ def home():
 
 		elif request.form['choice'] == 'load':
 			# go to load pages and pull in all tournament entries from the database
-			flash("Let's load it up")
 			return redirect(url_for("load_tournament"))
 
 	return render_template('index.html', form=form, title="Choose")
@@ -28,10 +27,16 @@ def home():
 
 @app.route('/load_tournament', methods = ['GET', 'POST'])
 def load_tournament():
-	# page 2
 	# connect to database and list all tournaments by name
-	#tourns = Tournament.query.all()
-	tourns = {'January':[], 'february':[]}
+	tourns = Tournament.query.all()
+	if request.method == 'POST':
+		tourn_to_load = request.form['tourn'] # selected tournament
+
+		# any tournament can be live or registering. 
+		# if live - player registration closed. find the latest round without results 
+		# elif registering - you can still add players and start playing
+		return redirect(url_for("add_players"))
+
 	return render_template('load_tournament.html', tourns=tourns)
 	# submit button load 
 
@@ -42,22 +47,20 @@ def create_tournament():
 	# page 3
     form = CreateTournament(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-    	torn = Tournament(request.form['tourn_name'],
-    						request.form['location'],
-    						request.form['date']
-    						request.form['system'],
-    						request.form['tie_break'])
-
-    	#db.session.add(torn)
-    	#db.session.commit()
-
+    	sys.stderr.write(request.form['tourn_name']+"\n")
+    	sys.stderr.write(request.form['location']+"\n")
+    	sys.stderr.write(request.form['date']+"\n")
+    	sys.stderr.write(request.form['system']+"\n")
+    	sys.stderr.write(request.form['tie_break']+"\n")
+#    	db.session.add(torn)
+#   	db.session.commit()
     	return redirect(url_for('add_players'))
 
-    return render_template('create_tournament.html', title='Home',form=form)
-
+    return render_template('create_tournament.html', title='Create new tournament', form=form)
 
 
 #@app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
+#def add_players(tournamentID):
 @app.route('/add_players', methods = ['GET', 'POST'])
 def add_players():
 	form = AddPlayers(request.form)
@@ -69,17 +72,26 @@ def add_players():
 
 		elif request.form['send'] == 'Delete':
 			pass
+			# delete that row in the table
+			# delete the entry from db.session
 
 
 		elif request.form['send'] == 'Start playing':
-			#db.session.commit() 
+			# flash a window asking user to confirm selection
+			# "Are you sure? You cannot add players once you start!""
+			# if yes
+
+				#db.session.commit() 
+				#return redirect(url_for("round"))
 			return redirect(url_for("round"))
+			# else:
 
 	return render_template('add_players.html',form=form, PLAYERS=PLAYERS)
 	
 
 
 #@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
+#def round(tournamentID, round_c):
 # <round_c> will be passed in as variable
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
@@ -98,9 +110,8 @@ def round():
 	return render_template('round.html', round_c=round_c, NUM_GAMES=NUM_GAMES, players=players)
     	
 
-# pass tournament ID and round counter into the path
 #@app.route('/<tournamentID>/<round_c>/standings', methods = ['GET', 'POST'])
-
+#def standings(tournamentID, round_c):
 @app.route('/standings', methods = ['GET', 'POST'])
 def standings():
 	round_c = 4 # take from the database
@@ -115,8 +126,6 @@ def standings():
 def final_results():
 	if request.method == 'POST':
 		# send email to all participants with final standings and round results 
-
-
 		pass
 
 
