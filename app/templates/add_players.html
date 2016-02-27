@@ -12,30 +12,30 @@
 Already registered
 </h3>
 
-
 <table>
-	<thead> <tr><th> Name</th> <th>Email</th></tr> </thead>
+		<thead> <tr><th> Name</th> <th>Email</th></tr> </thead>
 {% for player in PLAYERS %}
 <tr> <td>{{ player[0] }}</td> <td> {{ player[1] }}<td/> 
-<td><button type="submit" name="send">Delete</button> </td> </tr>
+<td><input type="submit" name="send">Delete</button> </td> </tr>
 
 {% endfor %}
 </table>
 <br>
 
 {% else %}
+<h3>
 <p> No players yet, add some </p>
-
+</h3>
 {% endif %}	
 
 
-<input type="text" name="name" placeholder="Name">
-<input type="email" name="email" placeholder="Email">
+{{ form.name(placeholder="Name") }}
+{{ form.email(placeholder="Email") }}
 
 <input type="submit" name="send" value="Add player">
-<br><br><br>
-<input type="submit" name="send" value="Start playing">	
 
+<br><br><br>
+{{ form.submit }}
 </form>
 </body>
 
