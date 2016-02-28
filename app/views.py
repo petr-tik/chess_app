@@ -1,28 +1,21 @@
 from flask import render_template, request, flash, redirect, url_for, validate_on_submit
 from app import app, db
 from models import Player, Tournament, Game
-from forms import ChooseTournament, CreateTournament, AddPlayers, RoundResults
+from forms import CreateTournament, AddPlayers, RoundResults
 from datetime import date
 import sys
 
 
-PLAYERS = []
-#PLAYERS= [('John', 'john@gmail.com', 3, 2, 1), ('Bob', 'bob@gmail.com', 2, 3, 1)]
-
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
-	# page 1
-	form = ChooseTournament(request.form)
-		
+	tourns = Tournament.query.all()
 	if request.method == 'POST':
-		if request.form['choice'] == 'create':	
+		if request.form['choice'] == 'Create new':	
 			return redirect(url_for("create_tournament"))
-
-		elif request.form['choice'] == 'load':
+		elif request.form['choice'] == 'Load old':
 			# go to load pages and pull in all tournament entries from the database
 			return redirect(url_for("load_tournament"))
-
-	return render_template('index.html', form=form, title="Choose")
+	return render_template('index.html', tourns=tourns, title="Choose")
 
 
 @app.route('/load_tournament', methods = ['GET', 'POST'])
@@ -40,13 +33,11 @@ def load_tournament():
 	return render_template('load_tournament.html', tourns=tourns)
 	# submit button load 
 
-
-
 @app.route('/create_tournament', methods = ['GET','POST'])
 def create_tournament():
 	# page 3
     form = CreateTournament(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
+    if form.validate_on_submit():
     	sys.stderr.write(request.form['tourn_name']+"\n")
     	sys.stderr.write(request.form['location']+"\n")
     	sys.stderr.write(request.form['date']+"\n")
@@ -86,7 +77,7 @@ def add_players():
 			return redirect(url_for("round"))
 			# else:
 
-	return render_template('add_players.html',form=form, PLAYERS=PLAYERS)
+	return render_template('add_players.html',form=form)
 	
 
 

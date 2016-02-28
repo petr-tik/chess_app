@@ -11,12 +11,23 @@
 <h3>
 Already registered
 </h3>
-
-<table>
-		<thead> <tr><th> Name</th> <th>Email</th></tr> </thead>
+<table id="playersTable">
+<thead> 
+    <tr>
+        <th> Name </th> 
+        <th> Email </th>
+    </tr> 
+</thead>
 {% for player in PLAYERS %}
-<tr> <td>{{ player[0] }}</td> <td> {{ player[1] }}<td/> 
-<td><input type="submit" name="send">Delete</button> </td> </tr>
+<form>
+
+<input type="hidden" name="product_id" value="{{ player[1]}}">
+
+    <tr> 
+        <td> {{ player[0] }} </td> 
+        <td> {{ player[1] }} <td/> 
+        <td> <button type="submit" name="send" value='delete'>Delete</button> </td> 
+    </tr>
 
 {% endfor %}
 </table>
