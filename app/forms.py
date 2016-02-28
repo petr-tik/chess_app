@@ -3,9 +3,6 @@ from datetime import date
 from wtforms import StringField, SelectField, validators, SubmitField, HiddenField
 from wtforms.fields.html5 import DateField
 
-
-class ChooseTournament(Form):
-	choice = SelectField('New tournament', choices=[('load', 'load'), ('create', 'create')])
 	
 class CreateTournament(Form):
 	tourn_name = StringField('Tournament name', [validators.Length(min=4, max=25)])

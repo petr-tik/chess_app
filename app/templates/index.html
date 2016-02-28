@@ -10,10 +10,20 @@
 	<h1>Choose what to do next</h1>
 
 <form action="" method="POST">
-   
-    <input type="submit" name="choice" value="load">
-    <input type="submit" name="choice" value="create">
-    
+{% if tourns %}
+
+<input type="submit" name="choice" value="Load old"> 
+
+{% else %}
+
+<input disabled type="submit" name="choice" value="Load old"> Nothing to load </input>
+
+
+{% endif %}
+<br>
+<input type="submit" name="choice" value="Create new">
+
+
 </form>
 </body>
 </html>
