@@ -6,22 +6,39 @@
 </head>
 <body>
 <form action="" method="POST">
-<br>
-Name    {{ form.tourn_name(placeholder="What will you call it?") }}    
-<br>
-Location    {{ form.location(placeholder="Where are you playing?") }}
-<br>
-Date {{ form.date }}    
-<br>
-Tournament system   {{ form.system }}
 
-<br>
-Tie breaker {{ form.tie_break }}
-<br>
-<br>
-<br>
+<table>
+    <thead>Tournament information</thead>
+    <tr>
+    <td>Name </td> 
+    <td> {{ form.tourn_name(placeholder="What will you call it?") }} </td>
+    </tr>
+
+    <tr>
+    <td>Location </td> 
+    <td> {{ form.location(placeholder="Where are you playing?") }} </td>
+    </tr>
+
+    <tr>
+    <td> Date </td> 
+    <td> {{ form.date }} </td>
+    </tr>
+
+    <tr>
+    <td> Tournament system </td> 
+    <td> {{ form.system }} </td>
+    </tr>
+
+    <tr>
+    <td>Tie breaker </td>
+    <td>{{ form.tie_break }} </td>
+    </tr>
+
+</table>
+
 {{ form.submit }}
 
 </form>
 </body>    
 </html>
+
