@@ -7,7 +7,7 @@ from wtforms.fields.html5 import DateField
 class CreateTournament(Form):
 	tourn_name = StringField('Tournament name', [validators.Length(min=4, max=25)])
 	location = StringField('Location')
-	date = DateField(format='%d/%m/%Y')
+	date = DateField(format='%Y-%m-%d')
 	system = SelectField('Tournament system', choices=[('swiss', 'Swiss system'), ('round_robin', 'Round robin')])
 	tie_break = SelectField('Tie breaker', choices=[('head', 'Head to head'), ('black', 'Wins with black')])
 	submit = SubmitField("Let's add players")
