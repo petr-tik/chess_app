@@ -1,27 +1,32 @@
-from flask import render_template, request, flash, redirect, url_for, validate_on_submit
+from flask import render_template, request, flash, redirect, url_for, g
 from app import app, db
 from models import Player, Tournament, Game
 from forms import CreateTournament, AddPlayers, RoundResults
 from datetime import date
 import sys
+import sqlite3
 
+DATABASE = 'test.db'
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-	tourns = Tournament.query.all()
+	conn = sqlite3.connect(DATABASE)
+	TOURNS = conn.execute('SELECT * FROM tournament').fetchall()
 	if request.method == 'POST':
 		if request.form['choice'] == 'Create new':	
 			return redirect(url_for("create_tournament"))
+			db.close()
 		elif request.form['choice'] == 'Load old':
 			# go to load pages and pull in all tournament entries from the database
 			return redirect(url_for("load_tournament"))
-	return render_template('index.html', tourns=tourns, title="Choose")
+	return render_template('index.html', tourns=TOURNS, title="Main menu")
 
 
 @app.route('/load_tournament', methods = ['GET', 'POST'])
 def load_tournament():
 	# connect to database and list all tournaments by name
-	tourns = Tournament.query.all()
+	conn = sqlite3.connect(DATABASE)
+	TOURNS = conn.execute('SELECT * FROM tournament').fetchall()
 	if request.method == 'POST':
 		tourn_to_load = request.form['tourn'] # selected tournament
 
@@ -30,26 +35,30 @@ def load_tournament():
 		# elif registering - you can still add players and start playing
 		return redirect(url_for("add_players"))
 
-	return render_template('load_tournament.html', tourns=tourns)
+	return render_template('load_tournament.html', tourns=TOURNS)
 	# submit button load 
+
 
 @app.route('/create_tournament', methods = ['GET','POST'])
 def create_tournament():
 	# page 3
+    conn = sqlite3.connect(DATABASE)
     form = CreateTournament(request.form)
-    if form.validate_on_submit():
-    	sys.stderr.write(request.form['tourn_name']+"\n")
-    	sys.stderr.write(request.form['location']+"\n")
-    	sys.stderr.write(request.form['date']+"\n")
-    	sys.stderr.write(request.form['system']+"\n")
-    	sys.stderr.write(request.form['tie_break']+"\n")
-#    	db.session.add(torn)
-#   	db.session.commit()
+    if request.method == 'POST':
+    	nam = request.form['name']
+    	loc = request.form['location']
+    	cal = request.form['calendar']
+    	sys = request.form['system']
+    	tie = request.form['tie_break']
+    	conn.execute('''INSERT INTO tournament (id, name, location, calendar, system, tie_break) \
+    		VALUES (NULL, ?, ?, ?, ?, ?)''', (nam, loc, cal, sys, tie))
+    	conn.commit()
+    	conn.close()
     	return redirect(url_for('add_players'))
 
     return render_template('create_tournament.html', title='Create new tournament', form=form)
 
-
+PLAYERS = []
 #@app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
 #def add_players(tournamentID):
 @app.route('/add_players', methods = ['GET', 'POST'])
@@ -61,12 +70,6 @@ def add_players():
 			PLAYERS.append(new)
 			#db.session.add(new)
 
-		elif request.form['send'] == 'Delete':
-			pass
-			# delete that row in the table
-			# delete the entry from db.session
-
-
 		elif request.form['send'] == 'Start playing':
 			# flash a window asking user to confirm selection
 			# "Are you sure? You cannot add players once you start!""
@@ -77,13 +80,12 @@ def add_players():
 			return redirect(url_for("round"))
 			# else:
 
-	return render_template('add_players.html',form=form)
-	
+	return render_template('add_players.html',form=form, PLAYERS=PLAYERS)
 
 
 #@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
 #def round(tournamentID, round_c):
-# <round_c> will be passed in as variable
+# <tournamentID> and <round_c> will be passed in as variables
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
 	"""gets the round number, PLAYERS' names and round match schedule, pass it into the rendered template 
@@ -118,6 +120,5 @@ def final_results():
 	if request.method == 'POST':
 		# send email to all participants with final standings and round results 
 		pass
-
 
 	return render_template('final_results.html', PLAYERS = PLAYERS, winner = 'john')
