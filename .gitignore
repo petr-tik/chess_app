@@ -1,0 +1,6 @@
+app.db
+*.pyc
+config.py
+test.db
+db_repository/
+.hitch

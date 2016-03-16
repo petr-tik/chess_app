@@ -1,0 +1,15 @@
+- name: Stub
+  tags:
+    - feature-name
+  scenario:
+    - Load website
+    - Click: create-new-button
+#    - Click: button-html-id
+#    - Click: First htmlclass1
+#    - Click: 2nd htmlclass2 htmlclass3
+#    - Click: Last htmlclass4
+#    - Send keys: Type some text
+#    - Fill form:
+#        username_html_id: username
+#        password1: password
+#        password2: password
