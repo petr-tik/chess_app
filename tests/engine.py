@@ -17,9 +17,13 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
         self.path.config_file = self.path.project.joinpath("config.py")
 
         self.path.appdb = self.path.project.joinpath("app.db")
+        self.path.testdb = self.path.project.joinpath("test.db")
 
         if self.path.appdb.exists():
             self.path.appdb.remove()
+
+        if self.path.testdb.exists():
+            self.path.testdb.remove()
 
         self.path.config_file.write_text((
             """import os\n"""
@@ -43,7 +47,7 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
             if changed:
                 run(self.pip("install", "-r", "requirements.txt"))
 
-        run(Command("bash")("-c", "sqlite3 test.db < test.sql"))
+        run(Command("bash")("-c", "sqlite3 {0}/test.db < {0}/test.sql".format(self.path.project)))
 
         #run(self.python("db_create.py"))
         #run(self.python("db_migrate.py"))
