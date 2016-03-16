@@ -6,6 +6,7 @@ import hitchselenium
 import hitchserve
 import hitchpython
 import hitchtest
+import kaching
 
 
 class ExecutionEngine(hitchtest.ExecutionEngine):
@@ -120,12 +121,16 @@ class ExecutionEngine(hitchtest.ExecutionEngine):
 
     def on_failure(self):
         """Runs if there is a test failure"""
+        if self.settings.get("kaching", False):
+            kaching.fail()
         if not self.settings['quiet']:
             if self.settings.get("pause_on_failure", False):
                 self.pause(message=self.stacktrace.to_template())
 
     def on_success(self):
         """Runs when a test successfully passes"""
+        if self.settings.get("kaching", False):
+            kaching.win()
         if self.settings.get("pause_on_success", False):
             self.pause(message="SUCCESS")
 

@@ -23,3 +23,4 @@ pause_on_failure: true
 pause_on_success: true
 startup_timeout: 15
 shutdown_timeout: 5
+kaching: yes

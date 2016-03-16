@@ -16,6 +16,7 @@ ipython-genutils==0.1.0
 Jinja2==2.8
 jupyter-client==4.2.2
 jupyter-core==4.1.0
+kaching==0.4
 MarkupSafe==0.23
 path.py==8.1.2
 patool==1.12
