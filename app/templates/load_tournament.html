@@ -3,17 +3,16 @@
 <html>
 <head>
 	<title> Choose a tournament </title>
+</head>
+
 <form action="" method="POST">
-<select name="select">
+<select name="tourn">
 {% for tourn in tourns %}
-	<option value="{{ tourn }}"> {{ tourn }} </option>
+	<option value="{{ tourn }}"> {{ tourn.name }} </option>
 {% endfor %}
-
-
 
 <input type="submit" value="Load this one">
 </form>
-<br>
 <br>
 <br>
 <br>
