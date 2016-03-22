@@ -65,12 +65,13 @@ def add_players():
 	form = AddPlayers(request.form)
 	if request.method == 'POST':
 		if request.form['send'] == 'Start playing':
-			# flash a window asking user to confirm selection
-			# "Are you sure? You cannot add players once you start!""
-			# if yes
+			conn = sqlite3.connect(DATABASE)
+    		for player in PLAYERS:
+    			conn.execute('''INSERT INTO player (id, name, email) \ 
+    				VALUES (NULL, ?, ?)''', (player[0], player[1]))
 
-				#db.session.commit() 
-				#return redirect(url_for("round"))
+    		conn.commit()
+    		conn.close()
 			return redirect(url_for("round"))
 			# else:
 

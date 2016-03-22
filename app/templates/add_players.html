@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
     <title> Add players </title>
 </head>
@@ -20,30 +19,52 @@ Already registered
 
 
 </tbody>
-</table>
-<br>
 
+</table>
+</form>
+
+<br>
 <b>Add new player</b>
 <br>
 
-
-<button onclick="deleteRow()">Delete row</button>
+<div>
 <input type="text" id="name" placeholder="Name" >
 <input type="text" id="email" placeholder="Email" >
-
+<button onclick="addtoTable()">Add player</button>
+</div>
 
 <br><br><br>
 {{ form.submit }}
-</form>
+
 </body>
 
 <script type="text/javascript">
 
-function deleteRow(t)
+function deleteRow(table)
 {
-    var row = t.parentNode.parentNode;
+    var row = table.parentNode.parentNode;
     document.getElementById("playersTable").deleteRow(row.rowIndex);
     console.log(row);
+}
+
+function addtoTable()
+{
+    var btn = document.createElement("button");
+    var t = document.createTextNode("delete");
+    btn.appendChild(t);
+    document.body.appendChild(btn);
+    var name = document.getElementById("name")
+    var email = document.getElementById("email")
+    var tableRef = document.getElementById("playersTable")
+    var newRow = tableRef.insertRow(-1)
+    var newCell  = newRow.insertCell(0);
+    // var newCell2  = newRow.insertCell(1);
+
+
+  // Append a text node to the cell
+    var newText  = document.createTextNode(name);
+    newCell.appendChild(newText);
+    newCell2.appendChild(newText);
 }
 
 </script>
