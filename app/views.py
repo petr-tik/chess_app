@@ -30,9 +30,6 @@ def load_tournament():
 	if request.method == 'POST':
 		tourn_to_load = request.form['tourn'] # selected tournament
 
-		# any tournament can be live or registering. 
-		# if live - player registration closed. find the latest round without results 
-		# elif registering - you can still add players and start playing
 		return redirect(url_for("add_players"))
 
 	return render_template('load_tournament.html', tourns=TOURNS)
@@ -80,7 +77,6 @@ def add_players():
 
 #@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
 #def round(tournamentID, round_c):
-# <tournamentID> and <round_c> will be passed in as variables
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
 	"""gets the round number, PLAYERS' names and round match schedule, pass it into the rendered template 
