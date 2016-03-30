@@ -75,35 +75,36 @@ def add_players():
 	return render_template('add_players.html',form=form)
 
 
-#@app.route('/<tournamentID>/<round_c>', methods = ['GET', 'POST'])
-#def round(tournamentID, round_c):
+#@app.route('/<tournamentID>/<round_num>', methods = ['GET', 'POST'])
+#def round(tournamentID, round_num):
 @app.route('/round', methods = ['GET', 'POST'])
 def round():
-	"""gets the round number, PLAYERS' names and round match schedule, pass it into the rendered template 
-
-	make a template to enter results and proceed to the next round """
+	"""
+    gets the round number, PLAYERS' names and round match schedule, 
+    pass it into the rendered template 
+    """
     conn = sqlite3.connect(DATABASE)
     cur = conn.cursor()
-    cur.execute("select * from game where \
+    games = cur.execute("select * from game where \
             game_tournament.tournament_id = ? \
-            game.round = ?", tournamentID, round_c).fetchall()
+            game.round = ?", tournamentID, round_num).fetchall()
 	
 	if request.method == 'POST':
 		return redirect(url_for("standings"))
 
-	return render_template('round.html', round_c=round_c, NUM_GAMES=NUM_GAMES, players=players)
+	return render_template('round.html', round_num=round_num, NUM_GAMES=NUM_GAMES, players=players)
     	
 
-#@app.route('/<tournamentID>/<round_c>/standings', methods = ['GET', 'POST'])
-#def standings(tournamentID, round_c):
+#@app.route('/<tournamentID>/<round_num>/standings', methods = ['GET', 'POST'])
+#def standings(tournamentID, round_num):
 @app.route('/standings', methods = ['GET', 'POST'])
 def standings():
-	round_c = 4 # take from the database
+	round_num = 4 # take from the database
 	NUM_ROUNDS = 5
 	if request.method == 'POST':
 		if request.form['button'] == "Final result":
 			return redirect(url_for('final'))
-	return render_template('standings.html', round_c=round_c, NUM_ROUNDS=NUM_ROUNDS, PLAYERS=PLAYERS)
+	return render_template('standings.html', round_num=round_num, NUM_ROUNDS=NUM_ROUNDS, PLAYERS=PLAYERS)
 
 
 @app.route('/final_results', methods = ['GET', 'POST'])
