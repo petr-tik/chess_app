@@ -69,7 +69,7 @@ def add_players():
 
     		conn.commit()
     		conn.close()
-			return redirect(url_for("round"))
+		return redirect(url_for("round"))
 			# else:
 
 	return render_template('add_players.html',form=form)
@@ -82,12 +82,12 @@ def round():
 	"""gets the round number, PLAYERS' names and round match schedule, pass it into the rendered template 
 
 	make a template to enter results and proceed to the next round """
-
-	round_c = 4 # take from the database
-	players = ['bob', 'john', 'colin', 'adam', 'ana', 'petr'] # need a list of names, where opponents are 2 
-	# a global number of games per round, that will be calculated for each tournament 
-	NUM_GAMES = len(players)
-
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute("select * from game where \
+            game_tournament.tournament_id = ? \
+            game.round = ?", tournamentID, round_c).fetchall()
+	
 	if request.method == 'POST':
 		return redirect(url_for("standings"))
 
