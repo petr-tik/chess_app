@@ -96,15 +96,15 @@ def round():
     	
 
 #@app.route('/<tournamentID>/<round_num>/standings', methods = ['GET', 'POST'])
+#@is_last_round(tournamentID, round_num)
 #def standings(tournamentID, round_num):
 @app.route('/standings', methods = ['GET', 'POST'])
 def standings():
 	round_num = 4 # take from the database
-	NUM_ROUNDS = 5
 	if request.method == 'POST':
 		if request.form['button'] == "Final result":
 			return redirect(url_for('final'))
-	return render_template('standings.html', round_num=round_num, NUM_ROUNDS=NUM_ROUNDS, PLAYERS=PLAYERS)
+	return render_template('standings.html', round_num=round_num, PLAYERS=PLAYERS)
 
 
 @app.route('/final_results', methods = ['GET', 'POST'])
