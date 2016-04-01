@@ -5,6 +5,7 @@ from forms import CreateTournament, AddPlayers, RoundResults
 from datetime import date
 import sys
 import sqlite3
+from functools import wraps
 
 DATABASE = 'test.db'
 
@@ -102,15 +103,7 @@ def round():
 def standings():
 	round_num = 4 # take from the database
 	if request.method == 'POST':
-		if request.form['button'] == "Final result":
-			return redirect(url_for('final'))
+        pass
 	return render_template('standings.html', round_num=round_num, PLAYERS=PLAYERS)
 
 
-@app.route('/final_results', methods = ['GET', 'POST'])
-def final_results():
-	if request.method == 'POST':
-		# send email to all participants with final standings and round results 
-		pass
-
-	return render_template('final_results.html', PLAYERS = PLAYERS, winner = 'john')
