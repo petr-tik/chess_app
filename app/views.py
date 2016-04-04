@@ -57,6 +57,9 @@ def home():
 
 @app.route('/load_tournament', methods = ['GET', 'POST'])
 def load_tournament():
+    db = get_db()
+    cur = db.execute('SELECT id, name FROM tournament')
+    TOURNS = cur.fetchall()
     if request.method == 'POST':
         tourn_to_load = request.form['tourn'] # selected tournament
     	return redirect(url_for("add_players"))
