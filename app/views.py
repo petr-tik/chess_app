@@ -69,31 +69,29 @@ def load_tournament():
 
 @app.route('/create_tournament', methods = ['GET','POST'])
 def create_tournament():
-	# page 3
     form = CreateTournament(request.form)
+    db = get_db()
     if request.method == 'POST':
-    	nam = request.form['name']
+    	nam = request.form['tourn_name']
     	loc = request.form['location']
     	cal = request.form['calendar']
     	sys = request.form['system']
-    	tie = request.form['tie_break']
-    	g.db.execute('''INSERT INTO tournament (id, name, location, calendar, system, tie_break) \
+    	tie = request.form['tie_break']	
+        db.execute('''INSERT INTO tournament (id, name, location, calendar, system, tie_break) \
     		VALUES (NULL, ?, ?, ?, ?, ?)''', (nam, loc, cal, sys, tie))
-    	return redirect(url_for('add_players'))
-
+        db.commit()
+    	tournamentID = db.execute('SELECT max(id) FROM tournament').fetchone()[0]
+        # return redirect(url_for('add_players'))
+        return redirect(url_for('add_players', tournamentID = hash(str(tournamentID))))
     return render_template('create_tournament.html', title='Create new tournament', form=form)
 
-#@app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
-#def add_players(tournamentID):
-@app.route('/add_players', methods = ['GET', 'POST'])
-def add_players():
+@app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
+def add_players(tournamentID):
 	form = AddPlayers(request.form)
 	if request.method == 'POST':
-		pass
-		
-        return redirect(url_for("round"))
-    		# else:
-
+		pass	
+        # return redirect(url_for("round"))
+    
 	return render_template('add_players.html',form=form)
 
 
@@ -121,5 +119,3 @@ def standings():
 	round_num = 4 # take from the database
 	if request.method == 'POST': 
 	   return render_template('standings.html', round_num=round_num, PLAYERS=PLAYERS)
-
-
