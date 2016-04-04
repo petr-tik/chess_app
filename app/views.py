@@ -5,26 +5,45 @@ from models import Player, Tournament, Game
 from forms import CreateTournament, AddPlayers, RoundResults
 from datetime import date
 import sys
-import sqlite3
+from sqlite3 import dbapi2 as sqlite3
 from functools import wraps
 
 
 DATABASE = 'test.db'
 
-@app.before_request
-def before_request():
-    g.db = sqlite3.connect(DATABASE)
+def connect_db():
+    """Connects to the specific database."""
+    rv = sqlite3.connect(DATABASE)
+    rv.row_factory = sqlite3.Row
+    return rv
+
+def get_db():
+    """Opens a new database connection if there is none yet for the
+    current application context.
+    """
+    if not hasattr(g, '_database'):
+        g._database = connect_db()
+    return g._database
+
+@app.teardown_appcontext
+def close_db(error):
+    """Commits again and closes the database when app context ends."""
+    if hasattr(g, '_database'):
+        g._database.close()
 
 @app.teardown_request
 def teardown_request(exception):
+    """Commits again and closes the database again at the end of the request."""
     db = getattr(g, '_database', None)
     if db is not None:
-        db.commit()
         db.close()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    TOURNS = g.db.execute('SELECT * FROM tournament').fetchall()
+    db = get_db()
+    cur = db.execute('SELECT * FROM tournament')
+    TOURNS = cur.fetchall()
     if request.method == 'POST':
 		if request.form['choice'] == 'Create new':	
 			return redirect(url_for("create_tournament"))
