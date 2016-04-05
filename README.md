@@ -9,9 +9,9 @@ Calculate and show the table after every round and create an email to send to al
 
 
 - [x] round robin schedule algorithm
-- [] swiss schedule algorithm
-- [] implementing swiss schedule algorithm
-- [] basic final results template 
-- [] add send email to final results
-- [] custom decorator to check last round and render different page
+- [ ] swiss schedule algorithm
+- [ ] implementing swiss schedule algorithm
+- [ ] basic final results template 
+- [ ] add send email to final results
+- [ ] custom decorator to check last round and render different page
 
