@@ -8,7 +8,10 @@ When all players have been registered, a back end will schedule games according 
 Calculate and show the table after every round and create an email to send to all attendees (they submit emails) with final results and per-round results.
 
 
-- [] round robin schedule algorithm
+- [x] round robin schedule algorithm
 - [] swiss schedule algorithm
 - [] implementing swiss schedule algorithm
- 
+- [] basic final results template 
+- [] add send email to final results
+- [] custom decorator to check last round and render different page
+
