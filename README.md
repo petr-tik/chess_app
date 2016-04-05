@@ -9,6 +9,7 @@ Calculate and show the table after every round and create an email to send to al
 
 
 - [x] round robin schedule algorithm
+- [ ] tournament loader screen
 - [ ] swiss schedule algorithm
 - [ ] implementing swiss schedule algorithm
 - [ ] basic final results template 
