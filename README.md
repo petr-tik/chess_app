@@ -8,6 +8,8 @@ When all players have been registered, a back end will schedule games according 
 Calculate and show the table after every round and create an email to send to all attendees (they submit emails) with final results and per-round results.
 
 
+### Tasks
+
 - [x] round robin schedule algorithm
 - [ ] tournament loader screen
 - [ ] swiss schedule algorithm
