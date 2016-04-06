@@ -3,8 +3,8 @@ from planner import GamePlan
 
 class testTournament(unittest.TestCase):
 	def setUp(self):
-		players_odd = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry', 'will']
-		players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'jae', 'harry']
+		players_odd = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'Joe', 'Fred', 'Mike', 'Em', 'Theo']
+		players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'Joe', 'Fred', 'Mike']
 		self.tourn_odd_robin = GamePlan(players_odd)
 		self.tourn_even_robin = GamePlan(players_even)
 		self.Rounds_even = self.tourn_even_robin.generate()
