@@ -8,6 +8,12 @@ import sys
 from sqlite3 import dbapi2 as sqlite3
 from functools import wraps
 
+####################################
+
+# 		Database interaction       #
+
+####################################
+
 
 DATABASE = 'test.db'
 
@@ -25,6 +31,13 @@ def get_db():
 		g._database = connect_db()
 	return g._database
 
+
+####################################
+
+# 		Custom decorators          #
+
+####################################
+
 @app.teardown_appcontext
 def close_db(error):
 	"""Commits again and closes the database when app context ends."""
@@ -37,6 +50,31 @@ def teardown_request(exception):
 	db = getattr(g, '_database', None)
 	if db is not None:
 		db.close()
+
+
+def is_last_round(func):
+    def decorator(f):
+        @wraps(func)
+        def decorated_function(*args, *kwargs):
+            # get the max round value and check if round_num is last round
+            
+            final_round = 
+            if round_num == final_round:
+                return render_template('final_results.html')
+            else:
+                return render_template('standings.html', round_num=round_num)
+
+
+
+        return decorated_function
+    return decorator
+
+
+####################################
+
+# 		Routes       			   #
+
+####################################    
 
 
 @app.route('/', methods=['GET', 'POST'])
