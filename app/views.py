@@ -14,14 +14,14 @@ from functools import wraps
 
 ############################################
 
-
-DATABASE = 'test.db'
+DATABASE = 'test2.db'
 
 def connect_db():
 	"""Connects to the specific database."""
 	rv = sqlite3.connect(DATABASE)
 	rv.row_factory = sqlite3.Row
 	return rv
+
 
 def get_db():
 	"""Opens a new database connection if there is none yet for the
@@ -38,11 +38,13 @@ def get_db():
 
 ############################################
 
+
 @app.teardown_appcontext
 def close_db(error):
 	"""Commits again and closes the database when app context ends."""
 	if hasattr(g, '_database'):
 		g._database.close()
+
 
 @app.teardown_request
 def teardown_request(exception):
@@ -50,24 +52,6 @@ def teardown_request(exception):
 	db = getattr(g, '_database', None)
 	if db is not None:
 		db.close()
-
-
-def is_last_round(func):
-    def decorator(f):
-        @wraps(func)
-        def decorated_function(*args, *kwargs):
-            # get the max round value and check if round_num is last round
-            
-            final_round = 
-            if round_num == final_round:
-                return render_template('final_results.html')
-            else:
-                return render_template('standings.html', round_num=round_num)
-
-
-
-        return decorated_function
-    return decorator
 
 
 ############################################
@@ -116,14 +100,16 @@ def create_tournament():
 		cal = request.form['calendar']
 		sys = request.form['system']
 		tie = request.form['tie_break']	
-		db.execute('''INSERT INTO tournament (id, name, location, calendar, system, tie_break) \
-			VALUES (NULL, ?, ?, ?, ?, ?)''', (nam, loc, cal, sys, tie))
+		db.execute('''INSERT INTO tournament \
+			(id, name, location, calendar, system, tie_break, round_num) \
+			VALUES (NULL, ?, ?, ?, ?, ?, ?)''', (nam, loc, cal, sys, tie, 1))
 		db.commit()
 		tournamentID = str(db.execute('''SELECT max(id) FROM tournament''').fetchone()[0])
 		db.close()
 		return redirect(url_for('add_players', tournamentID = tournamentID))
 	
 	return render_template('create_tournament.html', title = 'Create new tournament', form=form)
+
 
 @app.route('/<tournamentID>/add_players', methods = ['GET', 'POST'])
 def add_players(tournamentID):
@@ -140,10 +126,10 @@ def add_players(tournamentID):
 				latest_player_id = db.execute('''SELECT max(id) FROM player''').fetchone()[0]
 				db.execute('''INSERT INTO player_tournament (player_id, tournament_id) \
 					VALUES (?, ?)''', (latest_player_id, tournamentID))
-				db.commit()
-			db.commit() """
-		
+				db.commit() """
 
+		
+#@is_last_round(tournamentID, round_num)
 #@app.route('/<tournamentID>/<round_num>', methods = ['GET', 'POST'])
 #def round(tournamentID, round_num):
 @app.route('/round', methods = ['GET', 'POST'])
