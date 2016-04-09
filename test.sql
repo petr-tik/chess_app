@@ -4,7 +4,8 @@ CREATE TABLE tournament (
     location TEXT,
     calendar DATE,
     system TEXT,
-    tie_break TEXT
+    tie_break TEXT,
+    round_num INT
 );
 
 CREATE TABLE player (
