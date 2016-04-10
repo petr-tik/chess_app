@@ -4,35 +4,39 @@
     <title> Add players </title>
 </head>
 <body>
-
-<form action="" method='POST'>
-
-<h3>
-Add players
-</h3>
-
-<table id="playersTable">
-<thead>
-Already registered
-</thead>
-<tbody>
-
-
-</tbody>
-
+<div id="myform">
+<b> Add new player </b>
+<table>
+    <tr>
+        <td>Name:</td>
+        <td><input type="text" id="name"></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td><input type="text" id="age">
+    </tr>
+    <tr>
+        <td><input type="button" id="add" value="Add" onclick="Javascript:addRow()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
 </table>
-</form>
 
 <br>
-<b>Add new player</b>
-<br>
-
-<div>
-<input type="text" id="name" placeholder="Name" >
-<input type="text" id="email" placeholder="Email" >
-<button onclick="addtoTable()">Add player</button>
 </div>
-
+<form action="" method="POST">
+<div id="mydata">
+<b> Already registered </b>
+<table id="myTableData"  border="1" cellpadding="2">
+    <tr>
+        <td>&nbsp;</td>
+        <td><b>Name</b></td>
+        <td><b>Email</b></td>
+    </tr>
+</table>
+&nbsp;<br/>
+</div>
+</form>
 <br><br><br>
 {{ form.submit }}
 
@@ -40,31 +44,26 @@ Already registered
 
 <script type="text/javascript">
 
-function deleteRow(table)
-{
-    var row = table.parentNode.parentNode;
-    document.getElementById("playersTable").deleteRow(row.rowIndex);
-    console.log(row);
+function addRow() {
+         
+    var myName = document.getElementById("name");
+    var age = document.getElementById("age");
+    var table = document.getElementById("myTableData");
+
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+
+    row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
+    row.insertCell(1).innerHTML= myName.value;
+    row.insertCell(2).innerHTML= age.value;
+
 }
 
-function addtoTable()
-{
-    var btn = document.createElement("button");
-    var t = document.createTextNode("delete");
-    btn.appendChild(t);
-    document.body.appendChild(btn);
-    var name = document.getElementById("name")
-    var email = document.getElementById("email")
-    var tableRef = document.getElementById("playersTable")
-    var newRow = tableRef.insertRow(-1)
-    var newCell  = newRow.insertCell(0);
-    // var newCell2  = newRow.insertCell(1);
-
-
-  // Append a text node to the cell
-    var newText  = document.createTextNode(name);
-    newCell.appendChild(newText);
-    newCell2.appendChild(newText);
+function deleteRow(obj) {
+     
+    var index = obj.parentNode.parentNode.rowIndex;
+    var table = document.getElementById("myTableData");
+    table.deleteRow(index);
 }
 
 </script>
