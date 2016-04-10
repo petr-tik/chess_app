@@ -80,12 +80,12 @@ def home():
 @app.route('/load_tournament', methods = ['GET', 'POST'])
 def load_tournament():
 	db = get_db()
-	cur = db.execute('SELECT id, name FROM tournament')
+	cur = db.execute('SELECT id, name, round_num FROM tournament')
 	TOURNS = cur.fetchall()
 	db.close()
 	if request.method == 'POST':
-		tourn_to_load = request.form['tourn'] # selected tournament
-		return redirect(url_for("add_players", tournamentID = tourn_to_load))
+		tourn_to_load = request.form['tourn']
+		return redirect(url_for("round", tournamentID = tourn_to_load, round_num = 2))
 
 	return render_template('load_tournament.html', tourns=TOURNS)
 
@@ -116,8 +116,8 @@ def add_players(tournamentID):
 	form = AddPlayers(request.form)
 	db = get_db()
 	if request.method == 'POST':
-		return redirect(url_for("round", tournamentID = tournamentID))
-	db.close()
+		db.close()
+		return redirect(url_for("round", tournamentID = tournamentID, round_num = 1))
 	return render_template('add_players.html',form=form)
 
 """ for player in players:
@@ -130,20 +130,20 @@ def add_players(tournamentID):
 
 		
 #@is_last_round(tournamentID, round_num)
-#@app.route('/<tournamentID>/<round_num>', methods = ['GET', 'POST'])
-#def round(tournamentID, round_num):
-@app.route('/round', methods = ['GET', 'POST'])
-def round():
+@app.route('/<tournamentID>/round_<round_num>', methods = ['GET', 'POST'])
+def round(tournamentID, round_num):
 	""" 
 	gets the round number, PLAYERS' names and round match schedule, 
 	pass it into the rendered template """
-	cur = conn.cursor()
-	games = cur.execute("select * from game where \
-			game_tournament.tournament_id = ? \
-			game.round = ?", tournamentID, round_num).fetchall()
+	db = get_db()
+	cur = db.execute('''select * from game, game_tournament WHERE \
+			game_tournament.tournament_id = ? AND \
+			game.round_num = ?''', (tournamentID, round_num))
+
+	games = cur.fetchall()
 	if request.method == 'POST':
 		return redirect(url_for("standings"))
-	return render_template('round.html', round_num=round_num, NUM_GAMES=NUM_GAMES, players=players)
+	return render_template('test.html', games = games)
 		
 
 #@app.route('/<tournamentID>/<round_num>/standings', methods = ['GET', 'POST'])

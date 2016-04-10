@@ -8,7 +8,7 @@
 <form action="" method="POST">
 <select name="tourn">
 {% for tourn in tourns %}
-	<option value="{{ tourn.id }}"> {{ tourn.name }} </option>
+	<option hidden="{{ tourn.round_num }}" value="{{ tourn.id }}"> {{ tourn.name }} </option>
 {% endfor %}
 
 <input type="submit" value="Load this one">
