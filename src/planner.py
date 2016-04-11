@@ -2,7 +2,7 @@ from collections import deque
 
 class GamePlan(object):
 	"""
-initialise the tournament object with an overall list of players and the system definition (swiss or robin)
+initialise the tournament object with an overall list of players' IDs
 
 input:
 a list of players
@@ -52,6 +52,7 @@ Thanks to @DRMacIver
 			players = self.players
 			players.append('_BYE')
 			return self.berger_robin(players)
+
 
 
 
