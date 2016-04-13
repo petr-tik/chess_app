@@ -4,7 +4,7 @@ from planner import GamePlan
 class testTournament(unittest.TestCase):
 	def setUp(self):
 		self.players_odd = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'Joe', 'Fred', 'Mike', 'Em', 'Theo']
-		self.players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'Joe', 'Fred', 'Mike']
+		self.players_even = ['john', 'bob', 'ana', 'kate', 'paolo', 'peter', 'Joe', 'Fred', 'Mike', 'Em']
 		self.tourn_odd_robin = GamePlan(self.players_odd)
 		self.tourn_even_robin = GamePlan(self.players_even)
 		self.rounds_even = self.tourn_even_robin.generate()
@@ -30,12 +30,7 @@ class testTournament(unittest.TestCase):
 	def test_everyone_bye(self):
                 byes = [] # list of players who sit out
                 for rnd in self.rounds_odd:
-			for tup_rnd in rnd:
-                                if '_BYE' in tup_rnd:
-                                        if tup_rnd[0] == '_BYE':
-                                                byes.append(tup_rnd[1])
-                                        else:
-                                                byes.append(tup_rnd[0])
+			byes.append(rnd['bye'])
 		# should sit out once and only once                
                 self.assertEqual(sorted(self.players_odd), sorted(byes))
 
