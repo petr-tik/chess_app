@@ -13,7 +13,7 @@ class testTournament(unittest.TestCase):
 	def test_players_per_round(self):
 		# test that each round only has max number of players not more than double the number of couples
 		for rnd in self.rounds_even:
-			self.assertTrue(len(self.tourn_even_robin.players) <= 2*len(rnd))
+			self.assertTrue(len(self.tourn_even_robin.players) <= 2*len(rnd['matches']))
 
 	def test_everyone_plays_even(self):
 		# everyone must play in each round
