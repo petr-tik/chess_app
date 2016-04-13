@@ -28,14 +28,16 @@ class testTournament(unittest.TestCase):
 				self.assertTrue(player in tup_rnd for tup_rnd in rnd)
 
 	def test_everyone_bye(self):
-		tup_byes = []
-		for rnd in self.rounds_odd:
+                byes = [] # list of players who sit out
+                for rnd in self.rounds_odd:
 			for tup_rnd in rnd:
-				if '_BYE' in tup_rnd:
-					tup_byes.append(tup_rnd)
-			byes = [player in tup for tup in tup_byes if player != '_BYE']
-			# everyone should sit out once and only once
-			self.assertEqual(sorted(self.players_odd), sorted(byes))
+                                if '_BYE' in tup_rnd:
+                                        if tup_rnd[0] == '_BYE':
+                                                byes.append(tup_rnd[1])
+                                        else:
+                                                byes.append(tup_rnd[0])
+		# should sit out once and only once                
+                self.assertEqual(sorted(self.players_odd), sorted(byes))
 
 if __name__ == '__main__':
     unittest.main(verbosity=10)
