@@ -26,35 +26,35 @@ Thanks to @DRMacIver
 		self.players = PLAYERS
 
 	def berger_robin(self, players):
+                # taken from https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
 		n = len(players)
 		shift = n/2
 		last = players.pop()
 		pl_deque = deque(players)
 		TOURNAMENT = []
 		for x in xrange(n-1):
-			matches = []
-			if x % 2 == 0:
-				matches.append((last, pl_deque[0]))
-			else:
-				matches.append((pl_deque[0], last))
-			other_games = [(pl_deque[x], pl_deque[x+1]) for x in xrange(1,(len(pl_deque)-1), 2)]	
-
-			pl_deque.rotate(shift)	
-			TOURNAMENT.append(matches+other_games)
+                        round_dict = {'matches' : [], 'bye': "__NONE"}
+                        if last == '_BYE':
+                                round_dict['bye'] = pl_deque[0]
+                        else:
+                                if x % 2 == 0:
+                                        round_dict['matches'].append((last, pl_deque[0]))
+                                else:
+                                        round_dict['matches'].append((pl_deque[0], last))
+                        other_games = [(pl_deque[x], pl_deque[x+1]) for x in xrange(1,(len(pl_deque)-1), 2)]	
+                        pl_deque.rotate(shift)
+	                round_dict['matches'] += other_games
+                        TOURNAMENT.append(round_dict)
 
 		return TOURNAMENT
 
 	def generate(self):
 		if len(self.players) % 2 == 0:
 			players = self.players
-			return self.berger_robin(players)	
 		else:
 			players = self.players
 			players.append('_BYE')
-			return self.berger_robin(players)
 
-
-
-
+                return self.berger_robin(players)
 
 		
