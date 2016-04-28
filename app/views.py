@@ -116,7 +116,7 @@ def add_players(tournamentID):
 	form = AddPlayers(request.form)
 	db = get_db()
 	if request.method == 'POST':
-		db.close()
+                db.close()
 		return redirect(url_for("round", tournamentID = tournamentID, round_num = 1))
 	return render_template('add_players.html',form=form)
 
@@ -126,8 +126,8 @@ def add_players(tournamentID):
 				latest_player_id = db.execute('''SELECT max(id) FROM player''').fetchone()[0]
 				db.execute('''INSERT INTO player_tournament (player_id, tournament_id) \
 					VALUES (?, ?)''', (latest_player_id, tournamentID))
-				db.commit() """
-
+				db.commit()
+"""
 		
 #@is_last_round(tournamentID, round_num)
 @app.route('/<tournamentID>/round_<round_num>', methods = ['GET', 'POST'])

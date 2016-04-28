@@ -26,7 +26,7 @@ Thanks to @DRMacIver
 		self.players = PLAYERS
 
 	def berger_robin(self, players):
-                # taken from https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+        # taken from https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
 		n = len(players)
 		shift = n/2
 		last = players.pop()
