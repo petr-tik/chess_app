@@ -1,6 +1,6 @@
 
 
-<aside class="notice">
+<aside class="warning">
 This is under active development without a working version yet
 </aside>
 
