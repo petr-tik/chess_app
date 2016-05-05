@@ -1,5 +1,7 @@
-<aside class="warning">
-This is under active development without 
+
+
+<aside class="notice">
+This is under active development without a working version yet
 </aside>
 
 # A flask web-app to organise chess tournaments 
