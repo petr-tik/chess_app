@@ -16,12 +16,14 @@ In db schema each tournament is created with an INT round_num parameter, which i
 
 ### Tasks
 
-- [ ] load tournament to latest round 
 - [x] round robin schedule algorithm
-- [ ] tournament loader screen
-- [ ] swiss schedule algorithm
-- [ ] implementing swiss schedule algorithm
+- [x] tournament creator
+- [x] tournament loader screen
+- [ ] load tournament to latest round 
+- [ ] add players to db
 - [ ] basic final results template 
 - [ ] add send email to final results
 - [ ] custom decorator to check last round and render different page
+- [ ] swiss schedule algorithm
+- [ ] implementing swiss schedule algorithm
 
