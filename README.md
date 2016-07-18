@@ -1,4 +1,4 @@
-# A flask web-app to organise chess tournaments 
+## A flask web-app to organise chess tournaments 
 
 Mockup [here](https://moqups.com/pe3v4/7xozNp9y). It will have 6-7 views, allow to load an old or create new chess tournament. 
 
@@ -7,11 +7,17 @@ Calculate and show the table after every round and create an email to send to al
 
 In db schema each tournament is created with an INT round_num parameter, which is incremented at the end of every successfully completed round, which allows you to load the last uncompleted round. Any uncompleted round won't be submitted to the db, so you will have to restart again. 
 
+## Run
+
+```bash
+./run.py
+```
+and go to address below in your browser
+http://127.0.0.1:5000/
 
 
 
-
-### Tasks
+### TO-DO
 
 - [ ] load tournament to latest round 
 - [x] round robin schedule algorithm
