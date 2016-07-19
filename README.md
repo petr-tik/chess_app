@@ -5,13 +5,13 @@ This is under active development without a working version yet
 # A flask web-app to organise chess tournaments 
 
 
-## Run
+## Run locally
 
 ```bash
-./run.py
+./run.sh
 ```
 
-and go to address below in your browser
+This runs the test suite and then the app locally under address below
 http://127.0.0.1:5000/
 
 
