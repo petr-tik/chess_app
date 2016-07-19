@@ -1,20 +1,20 @@
 import os
-import flaskr
+import flask
 import unittest
 import tempfile
 
-class FlaskrTestCase(unittest.TestCase):
+class ChessAppTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
-        flaskr.app.config['TESTING'] = True
-        self.app = flaskr.app.test_client()
-        with flaskr.app.app_context():
-            flaskr.init_db()
+        self.db_fd, flask.app.config['DATABASE'] = tempfile.mkstemp()
+        flask.app.config['TESTING'] = True
+        self.app = flask.app.test_client()
+        with flask.app.app_context():
+            flask.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
-        os.unlink(flaskr.app.config['DATABASE'])
+        os.unlink(flask.app.config['DATABASE'])
 
 if __name__ == '__main__':
     unittest.main()
