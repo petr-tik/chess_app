@@ -24,12 +24,12 @@ class GamePlan(object):
     def berger_robin(self, players):
     # taken from
     # https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
-        n = len(players)
+        number_of_players = len(players)
         shift = n / 2
         last = players.pop()
         pl_deque = deque(players)
         TOURNAMENT = []
-        for x in xrange(n - 1):
+        for x in xrange(number_of_players - 1):
             round_dict = {'matches': [], 'bye': "__NONE"}
             if last == '_BYE':
                 round_dict['bye'] = pl_deque[0]
@@ -54,3 +54,5 @@ class GamePlan(object):
             players.append('_BYE')
 
         return self.berger_robin(players)
+
+
