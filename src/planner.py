@@ -22,8 +22,15 @@ class GamePlan(object):
         self.players = list(players)
 
     def berger_robin(self, players):
-        # taken from
-        # https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+        """ 
+        Input:
+              array of player names/ids
+        Returns:
+              tournament - an array of hashmaps, 
+                           each containing matches and bye for the round
+        taken from
+        https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+        """
         number_of_players = len(players)
         shift = number_of_players / 2
         last = players.pop()
@@ -38,11 +45,11 @@ class GamePlan(object):
                     round_dict['matches'].append((last, pl_deque[0]))
                 else:
                     round_dict['matches'].append((pl_deque[0], last))
-            other_games = [(pl_deque[x], pl_deque[x + 1])
-                           for x in xrange(1, (len(pl_deque) - 1), 2)]
-            pl_deque.rotate(shift)
+            other_games = [(pl_deque[idx], pl_deque[idx + 1])
+                           for idx in xrange(1, (len(pl_deque) - 1), 2)]
             round_dict['matches'] += other_games
             tournament.append(round_dict)
+            pl_deque.rotate(shift)  # for the next for-loop iteration
 
         return tournament
 

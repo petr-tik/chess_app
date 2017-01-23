@@ -6,8 +6,9 @@ import pdb
 class testTournament(unittest.TestCase):
 
     def setUp(self):
-        NAMES = ['john', 'bob', 'generic_name', 'kate', 'paolo',
-                 'peter', "Joe", 'Fred', 'Mike', 'Em', 'Theo']
+        # NAMES = ['john', 'bob', 'generic_name', 'kate', 'paolo',
+        #          'peter', "Joe", 'Fred', 'Mike', 'Em', 'Theo']
+        NAMES = list(xrange(150))  # use int ids instead
         self.players_even = [NAMES[idx] for idx in xrange(10)]
         self.players_odd = [NAMES[idx] for idx in xrange(11)]
         self.tourn_odd_robin = GamePlan(self.players_odd)
@@ -35,14 +36,13 @@ class testTournament(unittest.TestCase):
                 self.assertTrue(player in tup_rnd for tup_rnd in rnd)
 
     def test_everyone_plays_odd(self):
-        """everyone must play in each round in a tournament 
-        with odd number of players"""
+        """In an odd-player tournament, each player plays each round """
         for rnd in self.rounds_odd:
             for player in self.players_odd:
                 self.assertTrue(player in tup_rnd for tup_rnd in rnd)
 
     def test_everyone_bye(self):
-        """Testing that in an odd-player tournament, each player sits out"""
+        """ In an odd-player tournament, each player sits out"""
         byes = []  # list of players who sit out
         for rnd in self.rounds_odd:
             byes.append(rnd['bye'])
