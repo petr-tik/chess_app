@@ -18,8 +18,8 @@ class GamePlan(object):
     Template needs to check for '_BYE' in each tuple and
     """
 
-    def __init__(self, PLAYERS):
-        self.players = PLAYERS
+    def __init__(self, players):
+        self.players = list(players)
 
     def berger_robin(self, players):
     # taken from
