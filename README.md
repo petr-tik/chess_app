@@ -5,10 +5,11 @@ This is under active development without a working version yet
 # A flask web-app to organise chess tournaments 
 
 
-## Run locally
+## Run in a Docker container
 
 ```bash
-./run.sh
+docker build -t chess-app .
+docker run -p 5000:5000 -it chess-app /bin/sh
 ```
 
 This runs the test suite and then the app locally under address below
