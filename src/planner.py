@@ -36,12 +36,12 @@ class GamePlan(object):
         last = players.pop()
         pl_deque = deque(players)
         tournament = []
-        for x in xrange(number_of_players - 1):
+        for stage in xrange(number_of_players - 1):
             round_dict = {'matches': [], 'bye': "__NONE"}
             if last == '_BYE':
                 round_dict['bye'] = pl_deque[0]
             else:
-                if x % 2 == 0:
+                if stage % 2 == 0:
                     round_dict['matches'].append((last, pl_deque[0]))
                 else:
                     round_dict['matches'].append((pl_deque[0], last))
@@ -54,12 +54,8 @@ class GamePlan(object):
         return tournament
 
     def generate(self):
-        if len(self.players) % 2 == 0:
-            players = self.players
-        else:
-            players = self.players
+        players = self.players
+        if len(players) % 2 == 1:
             players.append('_BYE')
 
         return self.berger_robin(players)
-
-
