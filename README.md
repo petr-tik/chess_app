@@ -30,7 +30,7 @@ In db schema each tournament is created with an INT round_num parameter, which i
 - [x] round robin schedule algorithm
 - [x] tournament creator
 - [x] tournament loader screen
-- [ ] Update flask to 0.12
+- [x] Update flask to 0.12
 - [ ] Move to py3
 - [ ] load tournament to latest round 
 - [ ] add players to db
