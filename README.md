@@ -9,7 +9,13 @@ This is under active development without a working version yet
 
 ```bash
 docker build -t chess-app .
-docker run -p 5000:5000 -it chess-app /bin/sh
+docker run -it -p 4000:5000 --volume $(pwd):/chess_app/:ro chess-app
+```
+
+to debug (only use docker ps -q, if it's the only running container)
+```bash
+docker exec -it $(docker ps -q) /bin/sh
+docker inspect $(docker ps -q)
 ```
 
 This runs the test suite and then the app locally under address below

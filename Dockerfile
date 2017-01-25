@@ -94,7 +94,7 @@ RUN set -ex \
 ENV PYTHONPATH .
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-COPY . /chess_app/.
+RUN mkdir /chess_app/
 # RUN rm -r /chess_app/flask - delete flask later
-
-CMD ["python", "chess_app/run.py"]
+WORKDIR /chess_app/
+CMD python run.py
