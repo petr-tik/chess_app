@@ -31,6 +31,8 @@ In db schema each tournament is created with an INT round_num parameter, which i
 - [x] tournament creator
 - [x] tournament loader screen
 - [x] Update flask to 0.12
+- [x] Test the round scheduler for a huge number of player names
+- [ ] Make it docker-friendly and run it from a container
 - [ ] Move to py3
 - [ ] load tournament to latest round 
 - [ ] add players to db
