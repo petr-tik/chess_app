@@ -30,13 +30,13 @@ class testTournament(unittest.TestCase):
                 len(self.tourn_even_robin.players) <= 2 * len(rnd['matches']))
 
     def test_everyone_plays_even(self):
-        """Test that everyone plays in each round with even player numbers"""
+        """ Test that everyone plays in each round with even player numbers"""
         for rnd in self.rounds_even:
             for player in self.players_even:
                 self.assertTrue(player in tup_rnd for tup_rnd in rnd)
 
     def test_everyone_plays_odd(self):
-        """In an odd-player tournament, each player plays each round """
+        """ In an odd-player tournament, each player plays each round """
         for rnd in self.rounds_odd:
             for player in self.players_odd:
                 self.assertTrue(player in tup_rnd for tup_rnd in rnd)
@@ -48,6 +48,11 @@ class testTournament(unittest.TestCase):
             byes.append(rnd['bye'])
         # should sit out once and only once
         self.assertEqual(sorted(self.players_odd), sorted(byes))
+
+    def test_everyone_plays_everyone_even(self):
+        """ Each player plays 1 and only 1 match against another """
+
+        pass
 
 if __name__ == '__main__':
     unittest.main(verbosity=10)

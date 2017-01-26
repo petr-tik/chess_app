@@ -14,7 +14,7 @@ from functools import wraps
 
 #
 
-DATABASE = 'test2.db'
+DATABASE = 'test.db'
 
 
 def connect_db():
@@ -65,7 +65,7 @@ def teardown_request(exception):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     db = get_db()
-    cur = db.execute('SELECT * FROM tournament')
+    cur = db.execute('SELECT id, name FROM tournament')
     TOURNS = cur.fetchall()
     if request.method == 'POST':
         if request.form['choice'] == 'Create new':
@@ -82,7 +82,7 @@ def home():
 @app.route('/load_tournament', methods=['GET', 'POST'])
 def load_tournament():
     db = get_db()
-    cur = db.execute('SELECT id, name, round_num FROM tournament')
+    cur = db.execute('SELECT id, name FROM tournament')
     TOURNS = cur.fetchall()
     db.close()
     if request.method == 'POST':
